@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="nmct.ba.cashlessproject.ui.View.Kassas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="525">
+    <UserControl.Resources>
+
+        <Style BasedOn="{StaticResource listbox}" TargetType="ListBox"/>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource txtMng}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource txbMng}"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Terug" Style="{StaticResource btnTerug}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding DataContext.Pages[0], RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+        <ListBox Grid.Row="1" Grid.RowSpan="2"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock Text="Naam"/>
+                    <TextBox Style="{StaticResource txbL}"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Type"/>
+                    <TextBox Style="{StaticResource txbR}"/>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="Bediend door:" Margin="12,15,10,7"/>
+            <TextBlock Text="Naam medewerker" FontWeight="SemiBold"/>
+            <TextBlock Text="Plannen:" Margin="12,15,10,0"/>
+            <StackPanel Orientation="Horizontal" Margin="12,10,10,10" VerticalAlignment="Bottom">
+                <CheckBox Height="16"/>
+                <ComboBox Width="262" Margin="10,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="van"/>
+                <DatePicker/>
+                <TextBlock Text="tot"/>
+                <DatePicker/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}"  HorizontalAlignment="Right" >
+
+            <Button Content="Opslaan" Style="{StaticResource BtnMngOnder}" Margin="0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

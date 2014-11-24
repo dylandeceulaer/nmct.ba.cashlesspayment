@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="nmct.ba.cashlessproject.ui.View.Producten"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="525">
+    <UserControl.Resources>
+
+        <Style BasedOn="{StaticResource listbox}" TargetType="ListBox"/>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource txtMng}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource txbMng}"/>
+        <Style TargetType="Button" BasedOn="{StaticResource btnTerug}">
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Width" Value="22"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:MenuVM/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Terug" Style="{StaticResource btnTerug}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding DataContext.Pages[0], RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+        </Button>
+        <ListBox Grid.Row="1"/>
+        <Button Content="Verwijder" Style="{StaticResource btnVerwijder}"/>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="Naam" Grid.Row="1" Grid.Column="1"/>
+            <TextBox/>
+            <StackPanel Orientation="Horizontal">
+                <Image Width="55" Height="55" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+                <StackPanel Margin="0,0,10,0">
+                    <TextBlock Text="Afbeelding" Margin="12,0,10,10"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                        <TextBox Width="197" Margin="12,0,0,0" VerticalAlignment="Bottom"/>
+                        <Button Content="..." Height="22" Width="22"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="prijs"/>
+            <TextBox/>
+            <TextBlock Text="Categorie"/>
+            <ComboBox Style="{StaticResource cboMng}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}" >
+            <Button Content="Nieuw" Style="{StaticResource BtnMngOnder}"/>
+            <Button Content="Opslaan" Style="{StaticResource BtnMngOnder}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

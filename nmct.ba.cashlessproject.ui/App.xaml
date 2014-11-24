@@ -1,0 +1,138 @@
+﻿<Application x:Class="nmct.ba.cashlessproject.ui.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="View/MainWindow.xaml">
+    <Application.Resources>
+        <!--MANAGEMENT WINDOWS-->
+        <Style x:Key="stMenu" TargetType="StackPanel">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style x:Key="MenuHoofding" TargetType="TextBlock">
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Width" Value="200"/>
+        </Style>
+        <Style x:Key="bordMenu" TargetType="Border">
+            <Setter Property="BorderBrush" Value="DodgerBlue"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Height" Value="279"/>
+            <Setter Property="Width" Value="199"/>
+        </Style>
+        <Style x:Key="textblockMenu" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12,12,10,0"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="textboxMenu" TargetType="TextBox">
+            <Setter Property="Margin" Value="10,12,10,0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="26"/>
+        </Style>
+        <Style x:Key="passwordBoxMenu" TargetType="PasswordBox">
+            <Setter Property="Margin" Value="10,12,10,0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="26"/>
+        </Style>
+        <Style x:Key="buttonMenu" TargetType="Button">
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="10,15,10,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Height" Value="30"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Red"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="btnTerug" BasedOn="{StaticResource buttonMenu}" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="10,10,10,0"/>
+
+        </Style>
+        <Style x:Key="listbox" TargetType="ListBox">
+            <Setter Property="Margin" Value="10,10,10,10"/>
+
+        </Style>
+        <Style x:Key="txtMng" TargetType="TextBlock">
+            <Setter Property="Margin" Value="12,0,10,5"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="txbMng" TargetType="TextBox">
+            <Setter Property="Margin" Value="12,0,10,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="22"/>
+        </Style>
+       <Style x:Key="cboMng" TargetType="ComboBox">
+        <Setter Property="Margin" Value="12,0,10,6"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="22"/>
+        </Style>
+        <Style x:Key="btnVerwijder" TargetType="Button" BasedOn="{StaticResource btnTerug}">
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Grid.Row" Value="2"/>
+            <Setter Property="Margin" Value="10,0,10,10"/>
+        </Style>
+        <Style x:Key="stKnoppen" TargetType="StackPanel">
+            <Setter Property="Margin" Value="12,0,10,10"/>
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="Grid.Row" Value="2"/>
+        </Style>
+        <Style x:Key="BtnMngOnder" TargetType="Button" BasedOn="{StaticResource btnTerug}">
+            <Setter Property="Width" Value="139"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+        </Style>
+        <Style x:Key="txbL" TargetType="TextBox" BasedOn="{StaticResource txbMng}">
+            <Setter Property="Width" Value="139"/>
+            <Setter Property="Margin" Value="12,0,0,6"/>
+
+        </Style>
+        <Style x:Key="txbR" TargetType="TextBox" BasedOn="{StaticResource txbL}">
+            <Setter Property="Margin" Value="10,0,10,5"/>
+
+        </Style>
+        <!--EINDE MANAGEMENT WINDOWS-->
+        <!--KASSA WINDOWS-->
+        <Style x:Key="TextBlockBox" TargetType="TextBlock">
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="5,10,5,10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="txbImage" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBox}">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style x:Key="stackImage" TargetType="StackPanel">
+            <Setter Property="Margin" Value="27,20,0,0"/>
+        </Style>
+        <Style x:Key="NaamKassa" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="10"/>
+
+        </Style>
+        <Style x:Key="HoeveelKassa" TargetType="TextBlock" BasedOn="{StaticResource NaamKassa}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style x:Key="stkHoeveel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="MinWidth" Value="26"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+        <Style x:Key="stkItem" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5,0,5,0"/>
+
+        </Style>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="nmct.ba.cashlessproject.ui.View.Aanmelden"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="525">
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource textboxMenu}" TargetType="TextBox"/>
+        <Style BasedOn="{StaticResource textblockMenu}" TargetType="TextBlock"/>
+        <Style BasedOn="{StaticResource passwordBoxMenu}" TargetType="PasswordBox"/>
+    </UserControl.Resources>
+    <Border Style="{StaticResource bordMenu}">
+        <StackPanel Style="{StaticResource stMenu}" >
+            <TextBlock Text="Aanmelden" Style="{StaticResource MenuHoofding}"/>
+            <TextBlock Text="Gebruikersnaam"/>
+            <TextBox/>
+            <TextBlock Text="wachtwoord"/>
+            <PasswordBox />
+            <Button Content="Log in" Style="{StaticResource buttonMenu}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding DataContext.Pages[0], RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+        </StackPanel>
+    </Border>
+</UserControl>
