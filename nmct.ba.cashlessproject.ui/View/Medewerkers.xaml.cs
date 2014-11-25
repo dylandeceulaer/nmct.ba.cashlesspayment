@@ -24,5 +24,6 @@ namespace nmct.ba.cashlessproject.ui.View
         {
             InitializeComponent();
         }
+
     }
 }

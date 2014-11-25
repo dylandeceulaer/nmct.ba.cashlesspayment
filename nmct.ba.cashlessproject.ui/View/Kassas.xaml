@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="525">
+    <UserControl.DataContext>
+        <vm:KassasVM/>
+    </UserControl.DataContext>
     <UserControl.Resources>
-
         <Style BasedOn="{StaticResource listbox}" TargetType="ListBox"/>
         <Style TargetType="TextBlock" BasedOn="{StaticResource txtMng}"/>
         <Style TargetType="TextBox" BasedOn="{StaticResource txbMng}"/>
@@ -22,18 +25,18 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Button Content="Terug" Style="{StaticResource btnTerug}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding DataContext.Pages[0], RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-        <ListBox Grid.Row="1" Grid.RowSpan="2"/>
+        <ListBox Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Kassas}" DisplayMemberPath="RegisterName" SelectedValue="{Binding Selected}"/>
 
         <StackPanel Grid.Column="1" Grid.Row="1">
 
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Naam"/>
-                    <TextBox Style="{StaticResource txbL}"/>
+                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.RegisterName, Mode=OneWay}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Type"/>
-                    <TextBox Style="{StaticResource txbR}"/>
+                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.Device, Mode=OneWay}" />
                 </StackPanel>
             </StackPanel>
             <TextBlock Text="Bediend door:" Margin="12,15,10,7"/>

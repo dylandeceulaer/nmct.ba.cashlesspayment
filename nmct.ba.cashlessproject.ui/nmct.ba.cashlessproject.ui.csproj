@@ -87,6 +87,7 @@
     <Compile Include="ViewModel\ApplicationVM.cs" />
     <Compile Include="ViewModel\Ipage.cs" />
     <Compile Include="ViewModel\KassasVM.cs" />
+    <Compile Include="ViewModel\KlantenVM.cs" />
     <Compile Include="ViewModel\MedewerkersVM.cs" />
     <Compile Include="ViewModel\MenuVM.cs" />
     <Compile Include="ViewModel\PageOneVM.cs" />
@@ -103,6 +104,9 @@
     </Compile>
     <Compile Include="View\Kassas.xaml.cs">
       <DependentUpon>Kassas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Klanten.xaml.cs">
+      <DependentUpon>Klanten.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Medewerkers.xaml.cs">
       <DependentUpon>Medewerkers.xaml</DependentUpon>
@@ -132,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Kassas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Klanten.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

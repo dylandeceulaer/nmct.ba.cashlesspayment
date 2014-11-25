@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="525">
+    <UserControl.DataContext>
+        <vm:MedewerkersVM/>
+    </UserControl.DataContext>
     <UserControl.Resources>
 
         <Style BasedOn="{StaticResource listbox}" TargetType="ListBox"/>
@@ -22,13 +26,13 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Button Content="Terug" Style="{StaticResource btnTerug}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding DataContext.Pages[0], RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-        <ListBox Grid.Row="1"/>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Medewerkers}" DisplayMemberPath="EmployeeName" SelectedValue="{Binding Selected}"/>
         <Button Content="Verwijder" Style="{StaticResource btnVerwijder}"/>
         <StackPanel Grid.Column="1" Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Naam" Grid.Row="1" Grid.Column="1"/>
-                    <TextBox Style="{StaticResource txbL}"/>
+                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.EmployeeName}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Voornaam"/>
@@ -37,25 +41,25 @@
             </StackPanel>
 
             <TextBlock Text="Straatnaam + nr"/>
-            <TextBox/>
+            <TextBox Text="{Binding Selected.Street}"/>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Postcode"/>
-                    <TextBox Style="{StaticResource txbL}"/>
+                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.PostalCode}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Plaats"/>
-                    <TextBox Style="{StaticResource txbR}"/>
+                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.City}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Email"/>
-                    <TextBox Style="{StaticResource txbL}"/>
+                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.Email}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Telefoon "/>
-                    <TextBox Style="{StaticResource txbR}"/>
+                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.Phone}"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

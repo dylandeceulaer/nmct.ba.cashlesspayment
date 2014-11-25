@@ -20,6 +20,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             Pages.Add(new MedewerkersVM());
             Pages.Add(new KassasVM());
             Pages.Add(new StatestiekenVM());
+            Pages.Add(new KlantenVM());
         }
         private List<Ipage> _pages;
         public List<Ipage> Pages

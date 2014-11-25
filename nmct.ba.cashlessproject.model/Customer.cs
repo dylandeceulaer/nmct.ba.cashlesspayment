@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace nmct.ba.cashlessproject.model
 {
-    class Customers
+    public class Customer
     {
         private int _id;
 

@@ -22,12 +22,32 @@ namespace nmct.ba.cashlessproject.model
             get { return _employeeName; }
             set { _employeeName = value; }
         }
-        private string _adress;
+        private string _street;
 
-        public string Adress
+        public string Street
         {
-            get { return _adress; }
-            set { _adress = value; }
+            get { return _street; }
+            set { _street = value; }
+        }private string _number;
+
+        public string Number
+        {
+            get { return _number; }
+            set { _number = value; }
+        }
+        private string _postalCode;
+
+        public string PostalCode
+        {
+            get { return _postalCode; }
+            set { _postalCode = value; }
+        }
+        private string _city;
+
+        public string City
+        {
+            get { return _city; }
+            set { _city = value; }
         }
         private string _email;
 
