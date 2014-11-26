@@ -21,7 +21,16 @@ namespace nmct.ba.cashlessproject.model
         {
             get { return _employeeName; }
             set { _employeeName = value; }
+        
         }
+        private string _firstName;
+
+        public string FirstName
+        {
+            get { return _firstName; }
+            set { _firstName = value; }
+        }
+        
         private string _street;
 
         public string Street

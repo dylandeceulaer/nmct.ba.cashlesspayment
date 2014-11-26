@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
 using nmct.ba.cashlessproject.model;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace nmct.ba.cashlessproject.ui.ViewModel
 {
@@ -29,7 +31,14 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             get { return _selected; }
             set { _selected = value; RaisePropertyChanged("Selected"); }
         }
-        
+        private string _alert;
+
+        public string Alert
+        {
+            get { return _alert; }
+            set { _alert = value; RaisePropertyChanged("Alert"); }
+        }
+
 
         private ObservableCollection<Employee> _medewerkers;
 
@@ -49,6 +58,73 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
+
+        public ICommand UpdateEmployeeCommand
+        {
+            get { return new RelayCommand(UpdateEmployee); }
+        }
+
+        private async void UpdateEmployee()
+        {
+            if (Selected.Id == -1)
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string json = JsonConvert.SerializeObject(Selected);
+
+                    HttpResponseMessage res = await client.PostAsync("http://localhost:5054/api/employee", new StringContent(json, Encoding.UTF8, "application/json"));
+                    if (res.IsSuccessStatusCode)
+                    {
+                        string jsonres = await res.Content.ReadAsStringAsync();
+                        int result = JsonConvert.DeserializeObject<int>(jsonres);
+                        if (result > 0)
+                        {
+                            Selected.Id = result;
+                            Alert = "De nieuwe medewerker is opgeslagen.";
+
+                        }
+                    }
+                }
+            }
+            else
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string json = JsonConvert.SerializeObject(Selected);
+
+                    HttpResponseMessage res = await client.PutAsync("http://localhost:5054/api/employee", new StringContent(json, Encoding.UTF8, "application/json"));
+                    if (res.IsSuccessStatusCode)
+                    {
+                        string jsonres = await res.Content.ReadAsStringAsync();
+                        int result = JsonConvert.DeserializeObject<int>(jsonres);
+                        if (result == 1)
+                        {
+                            Alert = "De wijzigingen zijn succesvol opgeslagen.";
+
+                        }
+                    }
+                }
+            }
+        }
+        private bool KanNieuw()
+        {
+            if (Medewerkers != null && Medewerkers[Medewerkers.Count - 1].Id != -1) return true;
+            return false;
+        }
+        public ICommand NieuwCommand
+        {
+            get { return new RelayCommand(Nieuw, KanNieuw); }
+        }
+
+        private void Nieuw()
+        {
+            Medewerkers.Add(new Employee()
+            {
+                Id = -1
+            });
+            Selected = Medewerkers[Medewerkers.Count() - 1];
+        }
+
         
     }
 }

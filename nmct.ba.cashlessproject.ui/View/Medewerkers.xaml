@@ -26,7 +26,20 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Button Content="Terug" Style="{StaticResource btnTerug}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding DataContext.Pages[0], RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Medewerkers}" DisplayMemberPath="EmployeeName" SelectedValue="{Binding Selected}"/>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Medewerkers}" SelectedValue="{Binding Selected}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="FirstName"/>
+                                <Binding Path="EmployeeName"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button Content="Verwijder" Style="{StaticResource btnVerwijder}"/>
         <StackPanel Grid.Column="1" Grid.Row="1">
             <StackPanel Orientation="Horizontal">
@@ -36,12 +49,20 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Voornaam"/>
-                    <TextBox Style="{StaticResource txbR}"/>
+                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.FirstName}"/>
                 </StackPanel>
             </StackPanel>
 
-            <TextBlock Text="Straatnaam + nr"/>
-            <TextBox Text="{Binding Selected.Street}"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock Text="Straatnaam" Grid.Row="1" Grid.Column="1"/>
+                    <TextBox Style="{StaticResource txbLOffset}" Text="{Binding Selected.Street}"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Nummer"/>
+                    <TextBox Style="{StaticResource txbROffset}" Text="{Binding Selected.Number}"/>
+                </StackPanel>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Postcode"/>
@@ -62,10 +83,11 @@
                     <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.Phone}"/>
                 </StackPanel>
             </StackPanel>
+            <TextBlock Text="{Binding Alert}" Style="{StaticResource txtAlert}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}" >
-            <Button Content="Nieuw" Style="{StaticResource BtnMngOnder}"/>
-            <Button Content="Opslaan" Style="{StaticResource BtnMngOnder}"/>
+            <Button Content="Nieuw" Style="{StaticResource BtnMngOnder}" Command="{Binding NieuwCommand}"/>
+            <Button Content="Opslaan" Style="{StaticResource BtnMngOnder}" Command="{Binding UpdateEmployeeCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>
