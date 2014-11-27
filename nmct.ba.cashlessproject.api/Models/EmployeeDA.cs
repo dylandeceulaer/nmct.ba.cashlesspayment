@@ -66,5 +66,11 @@ namespace nmct.ba.cashlessproject.api.Models
 
             return Database.InsertData(CONNSTR, sql, par1, par2, par3, par4, par5, par6, par7,par8);
         }
+        public static int DeleteEmployee(int id)
+        {
+            string sql = "DELETE FROM Employee WHERE ID=@id";
+            DbParameter par = Database.AddParameter(CONNSTR, "id", id);
+            return Database.ModifyData(CONNSTR, sql, par);
+        }
     }
 }

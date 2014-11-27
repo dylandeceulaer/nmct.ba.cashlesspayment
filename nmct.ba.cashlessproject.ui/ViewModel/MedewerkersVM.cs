@@ -111,6 +111,29 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             if (Medewerkers != null && Medewerkers[Medewerkers.Count - 1].Id != -1) return true;
             return false;
         }
+        public ICommand DeleteEmployeeCommand
+        {
+            get { return new RelayCommand(DeleteEmployee); }
+        }
+        private async void DeleteEmployee()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                HttpResponseMessage res = await client.DeleteAsync("http://localhost:5054/api/employee/"+Selected.Id);
+                if (res.IsSuccessStatusCode)
+                {
+                    string jsonres = await res.Content.ReadAsStringAsync();
+                    int result = JsonConvert.DeserializeObject<int>(jsonres);
+                    if (result == 1)
+                    {
+                        Alert = "Succesvol verwijderd.";
+                        GetMedewerkers();
+                    }
+                }
+            }
+        }
+
         public ICommand NieuwCommand
         {
             get { return new RelayCommand(Nieuw, KanNieuw); }

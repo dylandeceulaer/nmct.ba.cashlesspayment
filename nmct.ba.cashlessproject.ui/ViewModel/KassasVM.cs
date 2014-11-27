@@ -22,6 +22,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         public KassasVM()
         {
             GetKassas();
+            GetMedewerkers();
         }
 
         private ObservableCollection<Register> _kassas;
@@ -32,12 +33,33 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             set { _kassas = value; RaisePropertyChanged("Kassas"); }
         }
 
+        private ObservableCollection<RegisterEmployee> _kassasBediening;
+
+        public ObservableCollection<RegisterEmployee> KassasBediening
+        {
+            get { return _kassasBediening; }
+            set { _kassasBediening = value; RaisePropertyChanged("KassasBediening"); }
+        }
+
+        private RegisterEmployee _selectedRE;
+
+        public RegisterEmployee SelectedRE
+        {
+            get { return _selectedRE; }
+            set { _selectedRE = value; RaisePropertyChanged("KassaBediening"); SetBediening(); }
+        }
+
+        private void SetBediening()
+        {
+            SelectedIndexEmpl = SelectedRE.EmployeeID;
+        }     
+
         private Register _selected;
 
         public Register Selected
         {
             get { return _selected; }
-            set { _selected = value; RaisePropertyChanged("Selected"); }
+            set { _selected = value; RaisePropertyChanged("Selected"); GetKassaBediening(); }
         }
 
         private async void GetKassas()
@@ -52,7 +74,47 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
+        private async void GetKassaBediening()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage res = await client.GetAsync("http://localhost:5054/api/RegisterEmployee/"+Selected.Id);
+                if (res.IsSuccessStatusCode)
+                {
+                    string json = await res.Content.ReadAsStringAsync();
+                    KassasBediening = JsonConvert.DeserializeObject<ObservableCollection<RegisterEmployee>>(json);
+                    
+                }
+            }
+        }
+        private int _selectedIndexEmpl;
 
+        public int SelectedIndexEmpl
+        {
+            get { return _selectedIndexEmpl; }
+            set { _selectedIndexEmpl = value; RaisePropertyChanged("SelectedIndexEmpl"); }
+        }
+        
+
+        private ObservableCollection<Employee> _medewerkers;
+
+        public ObservableCollection<Employee> Medewerkers
+        {
+            get { return _medewerkers; }
+            set { _medewerkers = value; RaisePropertyChanged("Medewerkers"); }
+        }
+        private async void GetMedewerkers()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync("http://localhost:5054/api/employee");
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    Medewerkers = JsonConvert.DeserializeObject<ObservableCollection<Employee>>(json);
+                }
+            }
+        }
         
 
     }

@@ -40,7 +40,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Verwijder" Style="{StaticResource btnVerwijder}"/>
+        <Button Content="Verwijder" Style="{StaticResource btnVerwijder}" Command="{Binding DeleteEmployeeCommand}"/>
         <StackPanel Grid.Column="1" Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>

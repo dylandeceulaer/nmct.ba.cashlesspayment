@@ -39,12 +39,38 @@
                     <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.Device, Mode=OneWay}" />
                 </StackPanel>
             </StackPanel>
-            <TextBlock Text="Bediend door:" Margin="12,15,10,7"/>
-            <TextBlock Text="Naam medewerker" FontWeight="SemiBold"/>
-            <TextBlock Text="Plannen:" Margin="12,15,10,0"/>
+            <TextBlock Text="Bediend door:" Margin="12,0,10,0"/>
+            <ListBox Height="70" ItemsSource="{Binding KassasBediening}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{1} - {2}">
+                                    <Binding Path="From"/>
+                                    <Binding Path="Until"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock Text="Plannen:" Margin="12,0,10,0"/>
             <StackPanel Orientation="Horizontal" Margin="12,10,10,10" VerticalAlignment="Bottom">
                 <CheckBox Height="16"/>
-                <ComboBox Width="262" Margin="10,0,0,0"/>
+                <ComboBox Width="262" Margin="10,0,0,0" ItemsSource="{Binding Medewerkers}" SelectedIndex="{Binding SelectedIndexEmpl}">
+                    <!--<ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{1} {2}">
+                                        <Binding Path="FirstName"/>
+                                        <Binding Path="EmployeeName"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>-->
+                </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="van"/>
