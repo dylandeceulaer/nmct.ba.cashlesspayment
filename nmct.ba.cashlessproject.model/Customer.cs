@@ -23,16 +23,10 @@ namespace nmct.ba.cashlessproject.model
             get { return _customerName; }
             set { _customerName = value; }
         }
-        private string _name;
 
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-        private int _balance;
+        private float _balance;
 
-        public int Balance
+        public float Balance
         {
             get { return _balance; }
             set { _balance = value; }
@@ -44,6 +38,41 @@ namespace nmct.ba.cashlessproject.model
         {
             get { return _picture; }
             set { _picture = value; }
+        }
+        private string _firstName;
+
+        public string FirstName
+        {
+            get { return _firstName; }
+            set { _firstName = value; }
+        }
+
+        private string _street;
+
+        public string Street
+        {
+            get { return _street; }
+            set { _street = value; }
+        }private string _number;
+
+        public string Number
+        {
+            get { return _number; }
+            set { _number = value; }
+        }
+        private string _postalCode;
+
+        public string PostalCode
+        {
+            get { return _postalCode; }
+            set { _postalCode = value; }
+        }
+        private string _city;
+
+        public string City
+        {
+            get { return _city; }
+            set { _city = value; }
         }
         
     }

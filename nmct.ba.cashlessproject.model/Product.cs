@@ -23,9 +23,9 @@ namespace nmct.ba.cashlessproject.model
             get { return _productName; }
             set { _productName = value; }
         }
-        private string _price;
+        private float _price;
 
-        public string _Price
+        public float Price
         {
             get { return _price; }
             set { _price = value; }

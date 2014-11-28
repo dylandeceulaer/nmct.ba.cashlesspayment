@@ -19,5 +19,13 @@ namespace nmct.ba.cashlessproject.api.Controllers
         {
             return RegisterEmployeeDA.GetRegisterEmployees(id);
         }
+        public int Put(RegisterEmployee reg)
+        {
+            return RegisterEmployeeDA.DeleteRegisterEmployee(reg);
+        }
+        public void Post(RegisterEmployee reg)
+        {
+            RegisterEmployeeDA.InsertRegisterEmployee(reg);
+        }
     }
 }

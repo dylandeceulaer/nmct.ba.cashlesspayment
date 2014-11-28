@@ -66,6 +66,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
 
         private async void UpdateEmployee()
         {
+            if (Selected != null) { 
             if (Selected.Id == -1)
             {
                 using (HttpClient client = new HttpClient())
@@ -105,6 +106,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                     }
                 }
             }
+                }
         }
         private bool KanNieuw()
         {
@@ -117,18 +119,21 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         }
         private async void DeleteEmployee()
         {
-            using (HttpClient client = new HttpClient())
+            if (Selected != null)
             {
-
-                HttpResponseMessage res = await client.DeleteAsync("http://localhost:5054/api/employee/"+Selected.Id);
-                if (res.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    string jsonres = await res.Content.ReadAsStringAsync();
-                    int result = JsonConvert.DeserializeObject<int>(jsonres);
-                    if (result == 1)
+                    HttpResponseMessage res = await client.DeleteAsync("http://localhost:5054/api/employee/" + Selected.Id);
+                    if (res.IsSuccessStatusCode)
                     {
-                        Alert = "Succesvol verwijderd.";
-                        GetMedewerkers();
+                        string jsonres = await res.Content.ReadAsStringAsync();
+                        
+                        int result = JsonConvert.DeserializeObject<int>(jsonres);
+                        if (result == 1)
+                        {
+                            Alert = "Succesvol verwijderd.";
+                            GetMedewerkers();
+                        }
                     }
                 }
             }

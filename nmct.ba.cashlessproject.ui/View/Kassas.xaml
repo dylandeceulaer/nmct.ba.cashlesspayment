@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="525">
     <UserControl.DataContext>
@@ -27,9 +28,9 @@
         <Button Content="Terug" Style="{StaticResource btnTerug}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding DataContext.Pages[0], RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
         <ListBox Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Kassas}" DisplayMemberPath="RegisterName" SelectedValue="{Binding Selected}"/>
 
-        <StackPanel Grid.Column="1" Grid.Row="1">
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <StackPanel>
                     <TextBlock Text="Naam"/>
                     <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.RegisterName, Mode=OneWay}"/>
@@ -40,12 +41,12 @@
                 </StackPanel>
             </StackPanel>
             <TextBlock Text="Bediend door:" Margin="12,0,10,0"/>
-            <ListBox Height="70" ItemsSource="{Binding KassasBediening}">
+            <ListBox Height="70" ItemsSource="{Binding KassasBediening}" SelectedValue="{Binding SelectedRE}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
                             <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{1} - {2}">
+                                <MultiBinding StringFormat="{}{0:dd/MM/yyyy} - {1:dd/MM/yyyy}">
                                     <Binding Path="From"/>
                                     <Binding Path="Until"/>
                                 </MultiBinding>
@@ -55,33 +56,32 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <TextBlock Text="Plannen:" Margin="12,0,10,0"/>
-            <StackPanel Orientation="Horizontal" Margin="12,10,10,10" VerticalAlignment="Bottom">
-                <CheckBox Height="16"/>
-                <ComboBox Width="262" Margin="10,0,0,0" ItemsSource="{Binding Medewerkers}" SelectedIndex="{Binding SelectedIndexEmpl}">
-                    <!--<ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock>
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{1} {2}">
-                                        <Binding Path="FirstName"/>
-                                        <Binding Path="EmployeeName"/>
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>-->
-                </ComboBox>
-            </StackPanel>
+            <ComboBox Margin="12,10,10,10" ItemsSource="{Binding Medewerkers}" SelectedValue="{Binding Path=SelectedEmpl}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="FirstName"/>
+                                    <Binding Path="EmployeeName"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="van"/>
-                <DatePicker/>
+                <DatePicker Width="100" SelectedDate="{Binding Path=SelectedRE.From, Mode=TwoWay,FallbackValue={x:Static sys:DateTime.Today}}"/>
                 <TextBlock Text="tot"/>
-                <DatePicker/>
+                <DatePicker Width="100" SelectedDate="{Binding Path=SelectedRE.Until, Mode=TwoWay,FallbackValue={x:Static sys:DateTime.Today}}"/>
             </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}"  HorizontalAlignment="Right" >
-
-            <Button Content="Opslaan" Style="{StaticResource BtnMngOnder}" Margin="0"/>
+        <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}" >
+            <Button Content="Verwijder" Style="{StaticResource BtnMngOnderDrie}" Command="{Binding DeleteRegEmpCommand}"/>
+            <Button Content="Nieuw" Style="{StaticResource BtnMngOnderDrie}" Command="{Binding NieuwCommand}"/>
+            <Button Content="Opslaan" Style="{StaticResource BtnMngOnderDrie}" Command="{Binding InsertRegEmpCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

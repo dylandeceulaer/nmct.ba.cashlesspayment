@@ -90,6 +90,9 @@
             <Setter Property="Width" Value="139"/>
             <Setter Property="Margin" Value="0,0,10,0"/>
         </Style>
+        <Style x:Key="BtnMngOnderDrie" TargetType="Button" BasedOn="{StaticResource BtnMngOnder}">
+            <Setter Property="Width" Value="88"/>
+        </Style>
         <Style x:Key="txbL" TargetType="TextBox" BasedOn="{StaticResource txbMng}">
             <Setter Property="Width" Value="137"/>
             <Setter Property="Margin" Value="12,0,0,6"/>

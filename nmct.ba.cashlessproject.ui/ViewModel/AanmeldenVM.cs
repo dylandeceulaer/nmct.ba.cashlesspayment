@@ -27,14 +27,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             get { return _wachtwoord; }
             set { _wachtwoord = value; RaisePropertyChanged("Wachtwoord"); }
-        }
-        public void Aanmelden()
-        {
-            if (Naam == "dylan" && Wachtwoord == "hallo")
-            {
-                
-            }
-        }
+        } 
 
     }
 }
