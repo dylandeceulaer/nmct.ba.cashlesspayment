@@ -5,27 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace nmct.ba.cashlessproject.api.Controllers
 {
+    [Authorize]
     public class ProductController : ApiController
     {
         public List<Product> Get()
         {
-            return ProductsDA.GetProducts();
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return ProductsDA.GetProducts(p.Claims);
         }
         public int Put(Product Product)
         {
-            return ProductsDA.UpdateProduct(Product);
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return ProductsDA.UpdateProduct(Product, p.Claims);
         }            
         public int Delete(int id)
         {
-            return ProductsDA.DeleteProduct(id);
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return ProductsDA.DeleteProduct(id, p.Claims);
         }
         public int Insert(Product Product)
         {
-            return ProductsDA.InsertProduct(Product);
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return ProductsDA.InsertProduct(Product, p.Claims);
         }
     }
 }

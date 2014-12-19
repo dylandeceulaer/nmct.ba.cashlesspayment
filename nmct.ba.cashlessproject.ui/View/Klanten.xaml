@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
+             xmlns:c="clr-namespace:nmct.ba.cashlessproject.ui.View.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="525">
     <UserControl.Resources>
-
         <Style BasedOn="{StaticResource listbox}" TargetType="ListBox"/>
         <Style TargetType="TextBlock" BasedOn="{StaticResource txtMng}"/>
         <Style TargetType="TextBox" BasedOn="{StaticResource txbMng}"/>
@@ -16,10 +16,12 @@
             <Setter Property="Width" Value="22"/>
             <Setter Property="Margin" Value="0"/>
         </Style>
+        <c:StringToImageConverter x:Key="StringToImageConverter"/>
     </UserControl.Resources>
     <UserControl.DataContext>
         <vm:KlantenVM/>
     </UserControl.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -30,7 +32,7 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Terug" Style="{StaticResource btnTerug}" Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding DataContext.Pages[0], RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+        <Button Content="Terug" Style="{StaticResource btnTerug}" Command="{Binding TerugCommand}">
         </Button>
         <ListBox Grid.Row="1" ItemsSource="{Binding Klanten}" SelectedValue="{Binding Selected}">
             <ListBox.ItemTemplate>
@@ -46,7 +48,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Verwijder" Style="{StaticResource btnVerwijder}"/>
+        <Button Content="Verwijder" Style="{StaticResource btnVerwijder}" Command="{Binding DeleteCustomerCommand}"/>
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,0,0">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
@@ -59,12 +61,12 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Image Width="55" Height="55" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+                <Image Width="55" Height="55" HorizontalAlignment="Left" Margin="12,0,0,0" Source="{Binding Selected.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
                 <StackPanel Margin="0,0,10,0">
                     <TextBlock Text="Afbeelding" Margin="12,0,10,10"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                        <TextBox Width="195" Margin="12,0,0,0" VerticalAlignment="Bottom"/>
-                        <Button Content="..." Height="22" Width="22"/>
+                        <TextBox Width="195" Margin="12,0,0,0" VerticalAlignment="Bottom" Text="{Binding ImagePath}"/>
+                        <Button Content="..." Height="22" Width="22" Command="{Binding AddImageCommand}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -93,10 +95,11 @@
                 </StackPanel>
             
             </StackPanel>
+            <TextBlock Text="{Binding Alert}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}" >
-            <Button Content="Nieuw" Style="{StaticResource BtnMngOnder}"/>
-            <Button Content="Opslaan" Style="{StaticResource BtnMngOnder}"/>
+            <Button Content="Nieuw" Style="{StaticResource BtnMngOnder}" Command="{Binding NieuwCommand}"/>
+            <Button Content="Opslaan" Style="{StaticResource BtnMngOnder}" Command="{Binding UpdateCustomerCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

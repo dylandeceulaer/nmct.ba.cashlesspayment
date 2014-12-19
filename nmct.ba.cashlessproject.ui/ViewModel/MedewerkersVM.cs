@@ -29,7 +29,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         public Employee Selected
         {
             get { return _selected; }
-            set { _selected = value; RaisePropertyChanged("Selected"); }
+            set { _selected = value; RaisePropertyChanged("Selected"); Alert = ""; }
         }
         private string _alert;
 
@@ -38,7 +38,6 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             get { return _alert; }
             set { _alert = value; RaisePropertyChanged("Alert"); }
         }
-
 
         private ObservableCollection<Employee> _medewerkers;
 
@@ -49,7 +48,9 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         }
         private async void GetMedewerkers()
         {
-            using(HttpClient client = new HttpClient()){
+
+            using(HttpClient client = new System.Net.Http.HttpClient()){
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
                 HttpResponseMessage response = await client.GetAsync("http://localhost:5054/api/employee");
                 if (response.IsSuccessStatusCode)
                 {
@@ -72,7 +73,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 using (HttpClient client = new HttpClient())
                 {
                     string json = JsonConvert.SerializeObject(Selected);
-
+                    client.SetBearerToken(ApplicationVM.token.AccessToken);
                     HttpResponseMessage res = await client.PostAsync("http://localhost:5054/api/employee", new StringContent(json, Encoding.UTF8, "application/json"));
                     if (res.IsSuccessStatusCode)
                     {
@@ -84,6 +85,10 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                             Alert = "De nieuwe medewerker is opgeslagen.";
 
                         }
+                        else
+                        {
+                            Alert = "Fout bij het toevoegen.";
+                        }
                     }
                 }
             }
@@ -92,7 +97,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 using (HttpClient client = new HttpClient())
                 {
                     string json = JsonConvert.SerializeObject(Selected);
-
+                    client.SetBearerToken(ApplicationVM.token.AccessToken);
                     HttpResponseMessage res = await client.PutAsync("http://localhost:5054/api/employee", new StringContent(json, Encoding.UTF8, "application/json"));
                     if (res.IsSuccessStatusCode)
                     {
@@ -102,6 +107,10 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                         {
                             Alert = "De wijzigingen zijn succesvol opgeslagen.";
 
+                        }
+                        else
+                        {
+                            Alert = "Fout bij het opslaan van de wijzigingen.";
                         }
                     }
                 }
@@ -123,6 +132,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             {
                 using (HttpClient client = new HttpClient())
                 {
+                    client.SetBearerToken(ApplicationVM.token.AccessToken);
                     HttpResponseMessage res = await client.DeleteAsync("http://localhost:5054/api/employee/" + Selected.Id);
                     if (res.IsSuccessStatusCode)
                     {
@@ -133,6 +143,10 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                         {
                             Alert = "Succesvol verwijderd.";
                             GetMedewerkers();
+                        }
+                        else
+                        {
+                            Alert = "Fout bij het verwijderen.";
                         }
                     }
                 }
@@ -152,7 +166,15 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             });
             Selected = Medewerkers[Medewerkers.Count() - 1];
         }
+        public ICommand TerugCommand
+        {
+            get { return new RelayCommand(Terug); }
+        }
+        private void Terug()
+        {
+            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+            appvm.ChangePage(new MenuVM());
+        }
 
-        
     }
 }

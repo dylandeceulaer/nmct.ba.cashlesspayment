@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 
 namespace nmct.ba.cashlessproject.model
 {
@@ -37,9 +36,9 @@ namespace nmct.ba.cashlessproject.model
             get { return _category; }
             set { _category = value; }
         }
-        private BitmapImage _image;
+        private byte[] _image;
 
-        public BitmapImage Image
+        public byte[] Image
         {
             get { return _image; }
             set { _image = value; }

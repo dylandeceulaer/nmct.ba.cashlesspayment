@@ -128,3 +128,12 @@ C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\System.Web.Http.Owin.xml
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\nmct.ba.cashlessproject.helper.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\nmct.ba.cashlessproject.helper.pdb
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\System.Net.Http.Extensions.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\System.Net.Http.Primitives.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\Thinktecture.IdentityModel.Client.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\System.Net.Http.Extensions.xml
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\System.Net.Http.Primitives.xml
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\Thinktecture.IdentityModel.Client.pdb
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\obj\Debug\nmct.ba.cashlessproject.api.csproj.App.config

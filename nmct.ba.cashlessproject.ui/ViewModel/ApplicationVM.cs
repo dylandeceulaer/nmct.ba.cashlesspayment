@@ -6,22 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Thinktecture.IdentityModel.Client;
 
 namespace nmct.ba.cashlessproject.ui.ViewModel
 {
     public class ApplicationVM : ObservableObject
     {
+        public static TokenResponse token = null;
+
         public ApplicationVM()
         {
-            Pages.Add(new MenuVM());
-            Pages.Add(new AanmeldenVM());
-            Pages.Add(new AccountVM());
-            Pages.Add(new ProductenVM());
-            Pages.Add(new MedewerkersVM());
-            Pages.Add(new KassasVM());
-            Pages.Add(new StatestiekenVM());
-
-            CurrentPage = Pages[1];
+            CurrentPage = new AanmeldenVM();
         }
         private Ipage _currentPage;
         public Ipage CurrentPage
@@ -39,7 +34,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             get { return new RelayCommand<Ipage>(ChangePage); }
         }
-        private void ChangePage(Ipage page)
+        public void ChangePage(Ipage page)
         {
             CurrentPage = page;
         }

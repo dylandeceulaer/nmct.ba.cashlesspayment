@@ -168,3 +168,5 @@ C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.ui\obj\Debug\nmct.ba.cashlessproject.ui.g.resources
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.ui\obj\Debug\nmct.ba.cashlessproject.ui.Properties.Resources.resources
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.ui\obj\Debug\nmct.ba.cashlessproject.ui.csproj.GenerateResource.Cache
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.ui\bin\Debug\Thinktecture.IdentityModel.Client.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.ui\bin\Debug\Thinktecture.IdentityModel.Client.pdb

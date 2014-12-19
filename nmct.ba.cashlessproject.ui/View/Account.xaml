@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="525">
+    
     <UserControl.Resources>
         <Style BasedOn="{StaticResource textboxMenu}" TargetType="TextBox">
             <Setter Property="Margin" Value="12,8,10,0"/>
@@ -17,6 +19,9 @@
             <Setter Property="Width" Value="80"/>
         </Style>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:AccountVM/>
+    </UserControl.DataContext>
     <Border Style="{StaticResource bordMenu}">
         <StackPanel Style="{StaticResource stMenu}" >
             <TextBlock Text="Wachtwoord wijzigen" Style="{StaticResource MenuHoofding}"/>
@@ -27,7 +32,7 @@
             <TextBlock Text="wachtwoord bevestigen"/>
             <TextBox />
             <StackPanel Orientation="Horizontal" Width="200">
-                <Button Content="Afmelden"/>
+                <Button Content="Afmelden" Command="{Binding AfmeldenCommand}"/>
                 <Button Content="Opslaan"/>
             </StackPanel>
         </StackPanel>

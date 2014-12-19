@@ -63,6 +63,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             using (HttpClient client = new HttpClient())
             {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
                 HttpResponseMessage res = await client.GetAsync("http://localhost:5054/api/register");
                 if (res.IsSuccessStatusCode)
                 {
@@ -75,6 +76,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             using (HttpClient client = new HttpClient())
             {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
                 HttpResponseMessage res = await client.GetAsync("http://localhost:5054/api/RegisterEmployee/"+Selected.Id);
                 if (res.IsSuccessStatusCode)
                 {
@@ -112,6 +114,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             using (HttpClient client = new HttpClient())
             {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
                 HttpResponseMessage response = await client.GetAsync("http://localhost:5054/api/employee");
                 if (response.IsSuccessStatusCode)
                 {
@@ -128,10 +131,11 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
 
         private async void InsertRegEmp()
         {
-            if (Selected != null && SelectedEmpl != null)
+            if (Selected != null && SelectedEmpl != null && SelectedRE !=null)
             {
                 using (HttpClient client = new HttpClient())
                 {
+                    client.SetBearerToken(ApplicationVM.token.AccessToken);
                     RegisterEmployee nieuw = SelectedRE;
                     nieuw.EmployeeID = SelectedEmpl.Id;
 
@@ -176,6 +180,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
 
                 using (HttpClient client = new HttpClient())
                 {
+                    client.SetBearerToken(ApplicationVM.token.AccessToken);
                     string json = JsonConvert.SerializeObject(SelectedRE);
 
                     HttpResponseMessage res = await client.PutAsync("http://localhost:5054/api/RegisterEmployee", new StringContent(json, Encoding.UTF8, "application/json"));
@@ -190,6 +195,15 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                     }
                 }
             }
+        }
+        public ICommand TerugCommand
+        {
+            get { return new RelayCommand(Terug); }
+        }
+        private void Terug()
+        {
+            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+            appvm.ChangePage(new MenuVM());
         }
     }
 }

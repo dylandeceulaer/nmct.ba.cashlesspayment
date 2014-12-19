@@ -23,6 +23,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            
         </StackPanel>
     </Border>
 </UserControl>
