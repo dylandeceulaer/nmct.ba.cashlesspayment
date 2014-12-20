@@ -11,6 +11,9 @@
         <Style BasedOn="{StaticResource textboxMenu}" TargetType="TextBox">
             <Setter Property="Margin" Value="12,8,10,0"/>
         </Style>
+        <Style BasedOn="{StaticResource bordMenu}" TargetType="Border">
+            <Setter Property="Height" Value="300"/>
+        </Style>
         <Style BasedOn="{StaticResource textblockMenu}" TargetType="TextBlock">
             <Setter Property="Margin" Value="12,8,10,0"/>
         </Style>
@@ -22,18 +25,19 @@
     <UserControl.DataContext>
         <vm:AccountVM/>
     </UserControl.DataContext>
-    <Border Style="{StaticResource bordMenu}">
+    <Border>
         <StackPanel Style="{StaticResource stMenu}" >
             <TextBlock Text="Wachtwoord wijzigen" Style="{StaticResource MenuHoofding}"/>
             <TextBlock Text="oud wachtwoord"/>
-            <TextBox/>
+            <TextBox Text="{Binding OudPaswoord}"/>
             <TextBlock Text="nieuw wachtwoord"/>
-            <TextBox />
+            <TextBox Text="{Binding NieuwPaswoord}"/>
             <TextBlock Text="wachtwoord bevestigen"/>
-            <TextBox />
+            <TextBox Text="{Binding NieuwPaswoordBevestiging}"/>
+            <TextBlock Text="{Binding Alert}"/>
             <StackPanel Orientation="Horizontal" Width="200">
                 <Button Content="Afmelden" Command="{Binding AfmeldenCommand}"/>
-                <Button Content="Opslaan"/>
+                <Button Content="Opslaan" Command="{Binding UpdatePasswordCommand}"/>
             </StackPanel>
         </StackPanel>
     </Border>

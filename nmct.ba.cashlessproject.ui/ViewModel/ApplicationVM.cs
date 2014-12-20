@@ -13,6 +13,8 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
     public class ApplicationVM : ObservableObject
     {
         public static TokenResponse token = null;
+        public static string password;
+        public static string user;
 
         public ApplicationVM()
         {

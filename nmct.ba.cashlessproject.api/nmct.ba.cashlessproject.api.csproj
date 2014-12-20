@@ -214,6 +214,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrganisationAccountController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\RegisterEmployeeController.cs" />
@@ -224,6 +225,7 @@
     </Compile>
     <Compile Include="helper\ConnectionString.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\AccountDA.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CategoryDA.cs" />
     <Compile Include="Models\CustomersDA.cs" />

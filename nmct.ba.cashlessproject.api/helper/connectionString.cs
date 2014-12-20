@@ -19,7 +19,7 @@ namespace nmct.ba.cashlessproject.api.helper
                 string dbpass = claims.FirstOrDefault(c => c.Type == "dbpass").Value;
                 string dbname = claims.FirstOrDefault(c => c.Type == "dbname").Value;
 
-                return Database.CreateConnectionString("System.Data.SqlClient", @"DYLAN-PC\SQLEXPRESS", Cryptography.Decrypt(dbname), Cryptography.Decrypt(dblogin), Cryptography.Decrypt(dbpass));
+                return Database.CreateConnectionString("System.Data.SqlClient", @"DYLAN-PC\SERVER", Cryptography.Decrypt(dbname), Cryptography.Decrypt(dblogin), Cryptography.Decrypt(dbpass));
                 //return Database.CreateConnectionString("System.Data.SqlClient", @"DYLAN-PC\SQLEXPRESS", dbname, dblogin, dbpass);
             }
             catch (Exception ex)

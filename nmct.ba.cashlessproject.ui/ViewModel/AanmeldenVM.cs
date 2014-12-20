@@ -51,6 +51,8 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
             ApplicationVM.token = GetToken();
+            ApplicationVM.user = Naam;
+            ApplicationVM.password = Wachtwoord;
 
             if (!ApplicationVM.token.IsError)
             {
