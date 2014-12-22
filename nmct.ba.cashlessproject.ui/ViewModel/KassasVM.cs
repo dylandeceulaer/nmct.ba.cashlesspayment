@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
 using nmct.ba.cashlessproject.model;
 using System;
@@ -27,8 +27,8 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             GetMedewerkers();
         }
 
+        #region properties
         private ObservableCollection<Register> _kassas;
-
         public ObservableCollection<Register> Kassas
         {
             get { return _kassas; }
@@ -36,7 +36,6 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         }
 
         private ObservableCollection<RegisterEmployee> _kassasBediening;
-
         public ObservableCollection<RegisterEmployee> KassasBediening
         {
             get { return _kassasBediening; }
@@ -44,21 +43,61 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         }
 
         private RegisterEmployee _selectedRE;
-
         public RegisterEmployee SelectedRE
         {
-            get { return _selectedRE; }
-            set { _selectedRE = value; RaisePropertyChanged("SelectedRE"); SetSelectedEmpl(); }
+            get
+            {
+                if (_selectedRE == null)
+                {
+                    if (Selected == null) SelectedRE = new RegisterEmployee() { From = DateTime.Now, Until = DateTime.Now, RegisterID = 1 };
+                    else SelectedRE = new RegisterEmployee() { From = DateTime.Now, Until = DateTime.Now, RegisterID = Selected.Id};
+                    return _selectedRE;
+                }
+                else return _selectedRE;
+            }
+            set { _selectedRE = value; RaisePropertyChanged("SelectedRE");}
         }  
 
         private Register _selected;
-
         public Register Selected
         {
             get { return _selected; }
             set { _selected = value; RaisePropertyChanged("Selected"); GetKassaBediening(); }
         }
+        private Employee _selectedEmpl;
+        public Employee SelectedEmpl
+        {
+            get { return _selectedEmpl; }
+            set { _selectedEmpl = value; RaisePropertyChanged("SelectedEmpl"); }
+        }
+        private ObservableCollection<Employee> _medewerkers;
+        public ObservableCollection<Employee> Medewerkers
+        {
+            get { return _medewerkers;}
+            set { _medewerkers = value; RaisePropertyChanged("Medewerkers"); }
+        }
+        #endregion
 
+        #region Icommands
+        public ICommand InsertRegEmpCommand
+        {
+            get { return new RelayCommand(InsertRegEmp); }
+        }
+        public ICommand NieuwCommand
+        {
+            get { return new RelayCommand(Nieuw); }
+        }
+        public ICommand DeleteRegEmpCommand
+        {
+            get { return new RelayCommand(DeleteRegEmp, KanDelete); }
+        }
+        public ICommand TerugCommand
+        {
+            get { return new RelayCommand(Terug); }
+        }
+        #endregion
+
+        #region CRUD
         private async void GetKassas()
         {
             using (HttpClient client = new HttpClient())
@@ -69,6 +108,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 {
                     string json = await res.Content.ReadAsStringAsync();
                     Kassas = JsonConvert.DeserializeObject<ObservableCollection<Register>>(json);
+                    Selected = Kassas[0];
                 }
             }
         }
@@ -86,30 +126,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
-        private Employee _selectedEmpl;
-
-        public Employee SelectedEmpl
-        {
-            get { return _selectedEmpl; }
-            set { _selectedEmpl = value; RaisePropertyChanged("SelectedEmpl"); }
-        }
-
-        private void SetSelectedEmpl()
-        {
-            if (SelectedRE != null && SelectedRE.EmployeeID >0)
-            {
-                var selected = from e in Medewerkers where e.Id == SelectedRE.EmployeeID select e;
-                SelectedEmpl = selected.ToList()[0] as Employee;
-            }
-            else SelectedEmpl = null;
-        }
-        private ObservableCollection<Employee> _medewerkers;
-
-        public ObservableCollection<Employee> Medewerkers
-        {
-            get { return _medewerkers; }
-            set { _medewerkers = value; RaisePropertyChanged("Medewerkers"); }
-        }
+        
         private async void GetMedewerkers()
         {
             using (HttpClient client = new HttpClient())
@@ -123,23 +140,17 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
-
-        public ICommand InsertRegEmpCommand
-        {
-            get { return new RelayCommand(InsertRegEmp); }
-        }
-
         private async void InsertRegEmp()
         {
-            if (Selected != null && SelectedEmpl != null && SelectedRE !=null)
+            if (Selected != null && SelectedRE !=null)
             {
                 using (HttpClient client = new HttpClient())
                 {
                     client.SetBearerToken(ApplicationVM.token.AccessToken);
-                    RegisterEmployee nieuw = SelectedRE;
-                    nieuw.EmployeeID = SelectedEmpl.Id;
+                    SelectedRE.From = SelectedRE.From.AddMilliseconds(-SelectedRE.From.Millisecond);
+                    SelectedRE.Until = SelectedRE.Until.AddMilliseconds(-SelectedRE.Until.Millisecond);
 
-                    string json = JsonConvert.SerializeObject(nieuw);
+                    string json = JsonConvert.SerializeObject(SelectedRE);
 
                     HttpResponseMessage res = await client.PostAsync("http://localhost:5054/api/RegisterEmployee", new StringContent(json, Encoding.UTF8, "application/json"));
                     if (res.IsSuccessStatusCode)
@@ -148,30 +159,6 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                     }
                 }
             }
-        }
-
-        public ICommand NieuwCommand
-        {
-            get { return new RelayCommand(Nieuw); }
-        }
-
-        private void Nieuw()
-        {
-            if (Selected != null && Selected.Id > 0)
-            {
-                KassasBediening.Add(new RegisterEmployee()
-                {
-                    RegisterID = Selected.Id,
-                    From = DateTime.Now,
-                    Until = DateTime.Now
-                });
-                SelectedRE = KassasBediening[KassasBediening.Count() - 1];
-            }
-        }
-
-        public ICommand DeleteRegEmpCommand
-        {
-            get { return new RelayCommand(DeleteRegEmp); }
         }
         private async void DeleteRegEmp()
         {
@@ -196,14 +183,32 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
-        public ICommand TerugCommand
+        #endregion
+
+        #region etc
+        private void Nieuw()
         {
-            get { return new RelayCommand(Terug); }
+            if (Selected != null && Selected.Id > 0)
+            {
+                KassasBediening.Add(new RegisterEmployee()
+                {
+                    RegisterID = Selected.Id,
+                    From = DateTime.Now,
+                    Until = DateTime.Now
+                });
+                SelectedRE = KassasBediening[KassasBediening.Count() - 1];
+            }
         }
         private void Terug()
         {
             ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
             appvm.ChangePage(new MenuVM());
         }
+        private bool KanDelete()
+        {
+            if (SelectedRE != null) return true;
+            return false;
+        } 
+        #endregion
     }
 }

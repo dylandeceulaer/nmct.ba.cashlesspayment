@@ -3,14 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
         xmlns:v="clr-namespace:nmct.ba.cashlessproject.ui.View"
-        Title="{Binding CurrentPage.Name}" Height="350" Width="525">
+        Title="{Binding CurrentPage.Name}" Height="380" Width="525">
     <Window.DataContext>
         <vm:ApplicationVM/>
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:PageOneVM}">
-            <v:PageOne/>
-        </DataTemplate>
+        
         <DataTemplate DataType="{x:Type vm:AanmeldenVM}">
             <v:Aanmelden/>
         </DataTemplate>

@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using nmct.ba.cashlessproject.model;
@@ -21,38 +21,82 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             get { return "Klanten"; }
         }
+
         public KlantenVM()
         {
             GetKlanten();
         }
-        private ObservableCollection<Customer> _klanten;
 
+        #region Properties
+        private ObservableCollection<Customer> _klanten;
         public ObservableCollection<Customer> Klanten
         {
             get { return _klanten; }
             set { _klanten = value; RaisePropertyChanged("Klanten"); }
         }
-        private Customer _selected;
 
+        private Customer _selected;
         public Customer Selected
         {
-            get { return _selected; }
-            set { _selected = value; RaisePropertyChanged("Selected"); ImagePath = ""; Alert = ""; }
+            get 
+            { 
+                if (_selected == null) 
+                { 
+                    Selected = new Customer() {Id=-1 }; 
+                    return _selected; 
+                } 
+                else return _selected; 
+            }
+            set { _selected = value; RaisePropertyChanged("Selected"); RaisePropertyChanged("UpdateCustomerCommand"); ImagePath = ""; Alert = ""; }
         }
-        private string _imagePath;
 
+        private string _imagePath;
         public string ImagePath
         {
             get { return _imagePath; }
             set { _imagePath = value; RaisePropertyChanged("ImagePath"); GetPhoto(); }
         }
-        private string _alert;
 
+        private string _alert;
         public string Alert
         {
             get { return _alert; }
             set { _alert = value; RaisePropertyChanged("Alert"); }
         }
+        #endregion
+
+        #region Icommands
+        public ICommand TerugCommand
+        {
+            get { return new RelayCommand(Terug); }
+        }
+
+        public ICommand UpdateCustomerCommand
+        {
+            get { return new RelayCommand(UpdateCustomer, Selected.IsValid); }
+        }
+
+        public ICommand DeleteCustomerCommand
+        {
+            get { return new RelayCommand(DeleteCustomer, KanDelete); }
+        }
+
+        public ICommand NieuwCommand
+        {
+            get { return new RelayCommand(Nieuw, KanNieuw); }
+        }
+
+        public ICommand AddImageCommand
+        {
+            get { return new RelayCommand(AddImage); }
+        }
+        public ICommand WindowLoadedCommand
+        {
+            get { return new RelayCommand(WindowLoaded); }
+        }
+        #endregion
+
+        #region CRUD
         private async void GetKlanten()
         {
             using (HttpClient client = new HttpClient())
@@ -63,22 +107,11 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 {
                     string json = await res.Content.ReadAsStringAsync();
                     Klanten = JsonConvert.DeserializeObject<ObservableCollection<Customer>>(json);
+                    Selected = Klanten[0];
                 }
             }
         }
-        public ICommand TerugCommand
-        {
-            get { return new RelayCommand(Terug); }
-        }
-        private void Terug()
-        {
-            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
-            appvm.ChangePage(new MenuVM());
-        }
-        public ICommand UpdateCustomerCommand
-        {
-            get { return new RelayCommand(UpdateCustomer); }
-        }
+        
         private async void UpdateCustomer()
         {
             if (Selected != null)
@@ -96,7 +129,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                             int result = JsonConvert.DeserializeObject<int>(jsonres);
                             if (result > 0)
                             {
-                                Selected.Id = result;
+                                GetKlanten();
                                 Alert = "De nieuwe medewerker is opgeslagen.";
 
                             }
@@ -132,17 +165,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
-        private bool KanNieuw()
-        {
-            if (Klanten == null) return true;
-            if (Klanten[Klanten.Count - 1].Id != -1) return true;
-            return false;
-        }
 
-        public ICommand DeleteCustomerCommand
-        {
-            get { return new RelayCommand(DeleteCustomer); }
-        }
         private async void DeleteCustomer()
         {
             if (Selected != null)
@@ -169,11 +192,28 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
+        #endregion
 
-        public ICommand NieuwCommand
+        #region etc
+        private void Terug()
         {
-            get { return new RelayCommand(Nieuw, KanNieuw); }
+            Customer.DoValidation = false;
+            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+            appvm.ChangePage(new MenuVM());
         }
+
+        private bool KanNieuw()
+        {
+            if (Klanten == null) return true;
+            if (Klanten[Klanten.Count - 1].Id != -1) return true;
+            return false;
+        }
+
+        private bool KanDelete()
+        {
+            if (Selected.Id > 0) return true;
+            return false;
+        } 
 
         private void Nieuw()
         {
@@ -183,12 +223,13 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             });
             Selected = Klanten[Klanten.Count() - 1];
         }
-
-        public ICommand AddImageCommand
+        private void WindowLoaded()
         {
-            get { return new RelayCommand(AddImage); }
+            Customer.DoValidation = true;
         }
+        #endregion
 
+        #region ImageStuff
         private void AddImage()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -220,6 +261,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
+        #endregion
 
     }
 }

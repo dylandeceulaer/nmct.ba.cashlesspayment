@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +15,6 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             get { return "Menu"; }
         }
-        //public MenuVM()
-        //{
-        //    Pages.Add("ProductenVM");
-        //    Pages.Add("MedewerkersVM");
-        //    Pages.Add("KassasVM");
-        //    Pages.Add("StatestiekenVM");
-        //    Pages.Add("KlantenVM");
-        //}
         public MenuVM()
         {
             Pages.Add(new ProductenVM());
@@ -38,11 +30,5 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             get { if (_pages == null)_pages = new List<Ipage>(); return _pages; }
             set { _pages = value; }
         }
-        //private List<string> _pages;
-        //public List<string> Pages
-        //{
-        //    get { return _pages; }
-        //    set { _pages = value; }
-        //}
     }
 }

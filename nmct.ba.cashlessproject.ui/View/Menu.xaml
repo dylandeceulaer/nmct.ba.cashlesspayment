@@ -10,11 +10,14 @@
         <Style BasedOn="{StaticResource buttonMenu}" TargetType="Button">
             <Setter Property="Margin" Value="10,15,10,0"/>
         </Style>
+        <Style BasedOn="{StaticResource bordMenu}" TargetType="Border">
+            <Setter Property="Height" Value="288"/>
+        </Style>
     </UserControl.Resources>
     <UserControl.DataContext>
         <vm:MenuVM/>
     </UserControl.DataContext>
-    <Border Style="{StaticResource bordMenu}">
+    <Border>
         <StackPanel Style="{StaticResource stMenu}" >
             <ItemsControl ItemsSource="{Binding Pages}" Margin="0,0,0,255">
                 <ItemsControl.ItemTemplate>

@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
+             xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="525">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
     <UserControl.DataContext>
         <vm:MedewerkersVM/>
     </UserControl.DataContext>
@@ -45,42 +51,42 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Naam" Grid.Row="1" Grid.Column="1"/>
-                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.EmployeeName}"/>
+                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.EmployeeName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Voornaam"/>
-                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.FirstName}"/>
+                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Straatnaam" Grid.Row="1" Grid.Column="1"/>
-                    <TextBox Style="{StaticResource txbLOffset}" Text="{Binding Selected.Street}"/>
+                    <TextBox Style="{StaticResource txbLOffset}" Text="{Binding Selected.Street, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Nummer"/>
-                    <TextBox Style="{StaticResource txbROffset}" Text="{Binding Selected.Number}"/>
+                    <TextBox Style="{StaticResource txbROffset}" Text="{Binding Selected.Number, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Postcode"/>
-                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.PostalCode}"/>
+                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.PostalCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Plaats"/>
-                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.City}"/>
+                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Email"/>
-                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.Email}"/>
+                    <TextBox Style="{StaticResource txbL}" Text="{Binding Selected.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Telefoon "/>
-                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.Phone}"/>
+                    <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.Phone, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
             </StackPanel>
             <TextBlock Text="{Binding Alert}" Style="{StaticResource txtAlert}"/>

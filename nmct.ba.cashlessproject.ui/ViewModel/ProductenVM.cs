@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using nmct.ba.cashlessproject.model;
@@ -26,64 +26,82 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             GetProducten();
             GetCategorien();
         }
+        #region Properties
         private ObservableCollection<Product> _producten;
-
         public ObservableCollection<Product> Producten
         {
             get { return _producten; }
             set { _producten = value; RaisePropertyChanged("Producten"); }
         }
         private List<Category> _categorien;
-
         public List<Category> Categorien
         {
             get { return _categorien; }
             set { _categorien = value; RaisePropertyChanged("Categorien"); }
         }
         private Product _selected;
-
         public Product Selected
         {
-            get { return _selected; }
-            set { _selected = value; RaisePropertyChanged("Selected"); SetCategory(); Alert = ""; ImagePath = ""; }
+            get
+            {
+                if (_selected == null)
+                {
+                    Selected = new Product() { Id = -1 };
+                    return _selected;
+                }
+                else return _selected;
+            }
+            set { _selected = value; RaisePropertyChanged("Selected"); Alert = ""; ImagePath = ""; RaisePropertyChanged("UpdateProductCommand"); }
         }
         private Category _selectedCategory;
-
         public Category SelectedCategory
         {
             get { return _selectedCategory; }
-            set { _selectedCategory = value; RaisePropertyChanged("SelectedCategory"); SetSelectedCategory(); }
+            set { _selectedCategory = value; RaisePropertyChanged("SelectedCategory"); }
         }
         private string _imagePath;
-
         public string ImagePath
         {
             get { return _imagePath; }
             set { _imagePath = value; RaisePropertyChanged("ImagePath"); GetPhoto(); }
         }
         private string _alert;
-
         public string Alert
         {
             get { return _alert; }
             set { _alert = value; RaisePropertyChanged("Alert"); }
         }
-        private void SetCategory()
+        #endregion
+        
+        #region Icommands
+        public ICommand TerugCommand
         {
-            if (Selected != null && Selected.Category > 0)
-            {
-                var selected = from e in Categorien where e.Id == Selected.Category select e;
-                SelectedCategory = selected.ToList()[0] as Category;
-            }
-            else SelectedCategory = null;
+            get { return new RelayCommand(Terug); }
         }
-        private void SetSelectedCategory()
+        public ICommand UpdateProductCommand
         {
-            if (SelectedCategory != null)
-            {
-                Selected.Category = SelectedCategory.Id;
-            }
+            get { return new RelayCommand(UpdateProduct, Selected.IsValid); }
         }
+        public ICommand DeleteProductCommand
+        {
+            get { return new RelayCommand(DeleteProduct, KanDelete); }
+        }
+        public ICommand NieuwCommand
+        {
+            get { return new RelayCommand(Nieuw, KanNieuw); }
+        }
+        public ICommand AddImageCommand
+        {
+            get { return new RelayCommand(AddImage); }
+        }
+        public ICommand WindowLoadedCommand
+        {
+            get { return new RelayCommand(WindowLoaded); }
+        }
+        #endregion
+
+        #region CRUD
+        
         private async void GetProducten()
         {
             using (HttpClient client = new HttpClient())
@@ -94,6 +112,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 {
                     string json = await res.Content.ReadAsStringAsync();
                     Producten = JsonConvert.DeserializeObject<ObservableCollection<Product>>(json);
+                    Selected = Producten[0];
                 }
             }
         }
@@ -110,20 +129,10 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
-        public ICommand TerugCommand
-        {
-            get { return new RelayCommand(Terug); }
-        }
-        private void Terug()
-        {
-            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
-            appvm.ChangePage(new MenuVM());
-        }
+        
+        
 
-        public ICommand UpdateProductCommand
-        {
-            get { return new RelayCommand(UpdateProduct); }
-        }
+        
         private async void UpdateProduct()
         {
             if (Selected != null)
@@ -178,17 +187,6 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
-        private bool KanNieuw()
-        {
-            if (Producten == null) return true;
-            if (Producten[Producten.Count - 1].Id != -1) return true;
-            return false;
-        }
-
-        public ICommand DeleteProductCommand
-        {
-            get { return new RelayCommand(DeleteProduct); }
-        }
         private async void DeleteProduct()
         {
             if (Selected != null)
@@ -215,12 +213,20 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
+        #endregion
 
-        public ICommand NieuwCommand
+        #region etc
+        private bool KanNieuw()
         {
-            get { return new RelayCommand(Nieuw, KanNieuw); }
+            if (Producten == null) return true;
+            if (Producten[Producten.Count - 1].Id != -1) return true;
+            return false;
         }
-
+        
+        private void WindowLoaded()
+        {
+            Product.DoValidation = true;
+        }
         private void Nieuw()
         {
             Producten.Add(new Product()
@@ -229,12 +235,20 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             });
             Selected = Producten[Producten.Count() - 1];
         }
-
-        public ICommand AddImageCommand
+        private bool KanDelete()
         {
-            get { return new RelayCommand(AddImage); }
+            if (Selected.Id > 0) return true;
+            return false;
         }
+        private void Terug()
+        {
+            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+            appvm.ChangePage(new MenuVM());
+            Product.DoValidation = false;
+        }
+        #endregion
 
+        #region imagestuff
         private void AddImage()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -266,6 +280,6 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
-
+        #endregion
     }
 }

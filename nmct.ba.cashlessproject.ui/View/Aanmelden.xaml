@@ -16,14 +16,14 @@
         <vm:AanmeldenVM/>
     </UserControl.DataContext>
     <Border Style="{StaticResource bordMenu}">
-        <StackPanel Style="{StaticResource stMenu}" >
+        <StackPanel Style="{StaticResource stMenu}" FocusManager.FocusedElement="{Binding ElementName=naam}">
             <TextBlock Text="Aanmelden" Style="{StaticResource MenuHoofding}"/>
             <TextBlock Text="Gebruikersnaam"/>
-            <TextBox Text="{Binding Naam}"/>
+            <TextBox x:Name="naam" Text="{Binding Naam}"/>
             <TextBlock Text="wachtwoord"/>
             <TextBox Name="txtWachtwoord" Text="{Binding Wachtwoord, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Content="Log in" Style="{StaticResource buttonMenu}" Command="{Binding LoginCommand}" IsDefault="{Binding ElementName=txtWachtwoord,Path=IsKeyboardFocused}"/>
-            <TextBlock Text="{Binding Error}" FontSize="12"></TextBlock>
+            <TextBlock Text="{Binding Error}" FontSize="12"/>
         </StackPanel>
     </Border>
 </UserControl>

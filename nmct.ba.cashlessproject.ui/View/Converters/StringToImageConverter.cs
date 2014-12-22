@@ -32,6 +32,7 @@ namespace nmct.ba.cashlessproject.ui.View.Converters
 
         private BitmapImage BitmapImageFromBytes(byte[] bytes)
         {
+            
             BitmapImage image = null;
             MemoryStream stream = null;
             try

@@ -34,11 +34,12 @@
             <TextBox Text="{Binding NieuwPaswoord}"/>
             <TextBlock Text="wachtwoord bevestigen"/>
             <TextBox Text="{Binding NieuwPaswoordBevestiging}"/>
-            <TextBlock Text="{Binding Alert}"/>
+            
             <StackPanel Orientation="Horizontal" Width="200">
                 <Button Content="Afmelden" Command="{Binding AfmeldenCommand}"/>
                 <Button Content="Opslaan" Command="{Binding UpdatePasswordCommand}"/>
             </StackPanel>
+            <TextBlock Text="{Binding Alert}" FontSize="12"/>
         </StackPanel>
     </Border>
 </UserControl>

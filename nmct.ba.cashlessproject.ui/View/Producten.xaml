@@ -5,8 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
              xmlns:c="clr-namespace:nmct.ba.cashlessproject.ui.View.Converters"
+             xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="525">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
     <UserControl.Resources>
         <c:StringToImageConverter x:Key="StringToImageConverter"/>
         <Style BasedOn="{StaticResource listbox}" TargetType="ListBox"/>
@@ -37,7 +43,7 @@
         <Button Content="Verwijder" Style="{StaticResource btnVerwijder}" Command="{Binding DeleteProductCommand}"/>
         <StackPanel Grid.Column="1" Grid.Row="1">
             <TextBlock Text="Naam" Grid.Row="1" Grid.Column="1"/>
-            <TextBox Text="{Binding Selected.ProductName}"/>
+            <TextBox Text="{Binding Selected.ProductName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
             <StackPanel Orientation="Horizontal">
                 <Image Width="55" Height="55" HorizontalAlignment="Left" Margin="12,0,0,0" Source="{Binding Selected.Image, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
                 <StackPanel Margin="0,0,10,0">
@@ -49,9 +55,9 @@
                 </StackPanel>
             </StackPanel>
             <TextBlock Text="prijs"/>
-            <TextBox Text="{Binding Selected.Price}"/>
+            <TextBox Text="{Binding Selected.Price, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
             <TextBlock Text="Categorie"/>
-            <ComboBox Style="{StaticResource cboMng}" ItemsSource="{Binding Categorien}" DisplayMemberPath="CategoryName" SelectedValue="{Binding SelectedCategory}"/>
+            <ComboBox Style="{StaticResource cboMng}" ItemsSource="{Binding Categorien}" DisplayMemberPath="CategoryName" SelectedValuePath="Id" SelectedValue="{Binding Selected.Category, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
             <TextBlock Text="{Binding Alert}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}" >

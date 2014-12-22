@@ -56,7 +56,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <TextBlock Text="Plannen:" Margin="12,0,10,0"/>
-            <ComboBox Margin="12,10,10,10" ItemsSource="{Binding Medewerkers}" SelectedValue="{Binding Path=SelectedEmpl}">
+            <ComboBox Margin="12,10,10,10" ItemsSource="{Binding Medewerkers}" SelectedValuePath="Id" SelectedValue="{Binding Path=SelectedRE.EmployeeID}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
 

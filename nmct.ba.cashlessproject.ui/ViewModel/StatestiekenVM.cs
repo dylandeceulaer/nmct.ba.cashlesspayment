@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using nmct.ba.cashlessproject.model;
@@ -30,13 +30,84 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             GetProducten();
             GetStatestieken();
         }
-        private List<Sales> _statestieken;
 
+        #region properties
+        private List<Sales> _statestieken;
         public List<Sales> Statestieken
         {
             get { return _statestieken; }
             set { _statestieken = value; RaisePropertyChanged("Statestieken"); }
         }
+        private double _stuks;
+        public double Stuks
+        {
+            get { return _stuks; }
+            set { _stuks = value; RaisePropertyChanged("Stuks"); }
+        }
+
+        private double _opbrengst;
+        public double Opbrengst
+        {
+            get { return _opbrengst; }
+            set { _opbrengst = value; RaisePropertyChanged("Opbrengst"); }
+        }
+
+        private List<Sales> _geselecteerdeSales;
+        public List<Sales> GeselecteerdeSales
+        {
+            get { return _geselecteerdeSales; }
+            set { _geselecteerdeSales = value; RaisePropertyChanged("GeselecteerdeSales"); }
+        }
+        private List<Register> _kassas;
+        public List<Register> Kassas
+        {
+            get { return _kassas; }
+            set { _kassas = value; RaisePropertyChanged("Kassas"); }
+        }
+        private List<Product> _producten;
+        public List<Product> Producten
+        {
+            get { return _producten; }
+            set { _producten = value; RaisePropertyChanged("Producten"); }
+        }
+        private object _selected;
+        public object Selected
+        {
+            get { return _selected; }
+            set { _selected = value; RaisePropertyChanged("Selected"); ToonStatestieken(); }
+        }
+        private bool _totaal;
+        public bool Totaal
+        {
+            get { return _totaal; }
+            set { _totaal = value; RaisePropertyChanged("Totaal"); ToonStatestieken(); }
+        }
+        private DateTime _datumVan;
+        public DateTime DatumVan
+        {
+            get { return _datumVan; }
+            set { _datumVan = value; RaisePropertyChanged("DatumVan"); ToonStatestieken(); }
+        }
+        private DateTime _datumTot;
+        public DateTime DatumTot
+        {
+            get { return _datumTot; }
+            set { _datumTot = value; RaisePropertyChanged("DatumTot"); ToonStatestieken(); }
+        }
+        #endregion
+
+        #region Icommands
+        public ICommand ExportCommand
+        {
+            get { return new RelayCommand(Export); }
+        }
+        public ICommand TerugCommand
+        {
+            get { return new RelayCommand(Terug); }
+        }
+        #endregion
+
+        #region CRUD
         private async void GetStatestieken()
         {
             using (HttpClient client = new HttpClient())
@@ -54,31 +125,35 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             var datemax = (from e in Statestieken select e.TimeStamp).Max();
             DatumTot = (DateTime)datemax;
         }
-        private double _stuks;
-
-        public double Stuks
+        private async void GetProducten()
         {
-            get { return _stuks; }
-            set { _stuks = value; RaisePropertyChanged("Stuks"); }
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage res = await client.GetAsync("http://localhost:5054/api/product");
+                if (res.IsSuccessStatusCode)
+                {
+                    string json = await res.Content.ReadAsStringAsync();
+                    Producten = JsonConvert.DeserializeObject<List<Product>>(json);
+                }
+            }
         }
-
-        private double _opbrengst;
-
-        public double Opbrengst
+        private async void GetKassas()
         {
-            get { return _opbrengst; }
-            set { _opbrengst = value; RaisePropertyChanged("Opbrengst"); }
+            using (HttpClient client = new HttpClient())
+            {
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage res = await client.GetAsync("http://localhost:5054/api/register");
+                if (res.IsSuccessStatusCode)
+                {
+                    string json = await res.Content.ReadAsStringAsync();
+                    Kassas = JsonConvert.DeserializeObject<List<Register>>(json);
+                }
+            }
         }
+        #endregion
 
-        private List<Sales> _geselecteerdeSales;
-
-        public List<Sales> GeselecteerdeSales
-        {
-            get { return _geselecteerdeSales; }
-            set { _geselecteerdeSales = value; RaisePropertyChanged("GeselecteerdeSales"); }
-        }
-        
-
+        #region Statestieken
         private void ToonStatestieken()
         {
             if (Totaal)
@@ -108,91 +183,6 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
             }
         }
-
-        private List<Register> _kassas;
-
-        public List<Register> Kassas
-        {
-            get { return _kassas; }
-            set { _kassas = value; RaisePropertyChanged("Kassas"); }
-        }
-        private List<Product> _producten;
-
-        public List<Product> Producten
-        {
-            get { return _producten; }
-            set { _producten = value; RaisePropertyChanged("Producten"); }
-        }
-        private async void GetProducten()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage res = await client.GetAsync("http://localhost:5054/api/product");
-                if (res.IsSuccessStatusCode)
-                {
-                    string json = await res.Content.ReadAsStringAsync();
-                    Producten = JsonConvert.DeserializeObject<List<Product>>(json);
-                }
-            }
-        }
-        private async void GetKassas()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage res = await client.GetAsync("http://localhost:5054/api/register");
-                if (res.IsSuccessStatusCode)
-                {
-                    string json = await res.Content.ReadAsStringAsync();
-                    Kassas = JsonConvert.DeserializeObject<List<Register>>(json);
-                }
-            }
-        }
-        private object _selected;
-
-        public object Selected
-        {
-            get { return _selected; }
-            set { _selected = value; RaisePropertyChanged("Selected"); ToonStatestieken(); }
-        }
-        public ICommand TerugCommand
-        {
-            get { return new RelayCommand(Terug); }
-        }
-        private void Terug()
-        {
-            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
-            appvm.ChangePage(new MenuVM());
-        }
-        private bool _totaal;
-
-        public bool Totaal
-        {
-            get { return _totaal; }
-            set { _totaal = value; RaisePropertyChanged("Totaal"); ToonStatestieken(); }
-        }
-        private DateTime _datumVan;
-
-        public DateTime DatumVan
-        {
-            get { return _datumVan; }
-            set { _datumVan = value; RaisePropertyChanged("DatumVan"); ToonStatestieken(); }
-        }
-        private DateTime _datumTot;
-
-        public DateTime DatumTot
-        {
-            get { return _datumTot; }
-            set { _datumTot = value; RaisePropertyChanged("DatumTot"); ToonStatestieken(); }
-        }
-
-
-        public ICommand ExportCommand
-        {
-            get { return new RelayCommand(Export); }
-        }
-
         private void Export()
         {
             string FileName;
@@ -247,7 +237,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                         Cell datum = new Cell() { CellReference = "A" + teller, DataType = CellValues.String, CellValue = new CellValue(sale.TimeStamp.ToShortDateString()) };
                         Cell kassa = new Cell() { CellReference = "B" + teller, DataType = CellValues.String, CellValue = new CellValue(kassaName) };
                         Cell produkt = new Cell() { CellReference = "C" + teller, DataType = CellValues.String, CellValue = new CellValue(productName) };
-                        Cell stuks = new Cell() { CellReference = "D" + teller, DataType = CellValues.String , CellValue = new CellValue(sale.Amound.ToString()) };
+                        Cell stuks = new Cell() { CellReference = "D" + teller, DataType = CellValues.String, CellValue = new CellValue(sale.Amound.ToString()) };
                         Cell totaal = new Cell() { CellReference = "E" + teller, DataType = CellValues.String, CellValue = new CellValue(sale.TotalPrice.ToString()) };
 
                         rij.Append(datum, kassa, produkt, stuks, totaal);
@@ -256,12 +246,12 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                         teller++;
                     }
 
-                    Row eind = new Row() { RowIndex = teller+1 };
-                    Cell totaalText = new Cell() { CellReference = "A"+(teller+1), DataType = CellValues.String, CellValue = new CellValue("Totaal") };
+                    Row eind = new Row() { RowIndex = teller + 1 };
+                    Cell totaalText = new Cell() { CellReference = "A" + (teller + 1), DataType = CellValues.String, CellValue = new CellValue("Totaal") };
                     Cell totaalStuks = new Cell() { CellReference = "D" + (teller + 1), DataType = CellValues.String, CellValue = new CellValue(Stuks.ToString()) };
                     Cell totaalTotaal = new Cell() { CellReference = "E" + (teller + 1), DataType = CellValues.String, CellValue = new CellValue(Opbrengst.ToString()) };
 
-                    eind.Append(totaalText, totaalStuks,totaalTotaal);
+                    eind.Append(totaalText, totaalStuks, totaalTotaal);
                     data.Append(eind);
 
                     wbp.Workbook.Save();
@@ -269,11 +259,19 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxResult msg = MessageBox.Show("Fout bij het wegschrijven van het bestand.","Fout",MessageBoxButton.OK);
-                    
+                    MessageBoxResult msg = MessageBox.Show("Fout bij het wegschrijven van het bestand.", "Fout", MessageBoxButton.OK);
+
                 }
             }
         }
-        
+        #endregion
+
+        #region etc
+        private void Terug()
+        {
+            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+            appvm.ChangePage(new MenuVM());
+        }
+        #endregion
     }
 }
