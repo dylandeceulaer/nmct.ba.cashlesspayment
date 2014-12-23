@@ -18,6 +18,11 @@ namespace nmct.ba.cashlessproject.api.Controllers
             ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
             return EmployeeDA.GetEployees(p.Claims);
         }
+        public Employee Get(string code)
+        {
+            ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
+            return EmployeeDA.GetEployeeByCode(p.Claims,code);
+        }
         public int Put(Employee empl)
         {
             ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;

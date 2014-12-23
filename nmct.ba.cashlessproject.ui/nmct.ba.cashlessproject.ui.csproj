@@ -103,9 +103,6 @@
       <DependentUpon>Account.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Converters\StringToImageConverter.cs" />
-    <Compile Include="View\Kassa.xaml.cs">
-      <DependentUpon>Kassa.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Kassas.xaml.cs">
       <DependentUpon>Kassas.xaml</DependentUpon>
     </Compile>
@@ -129,10 +126,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Account.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Kassa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

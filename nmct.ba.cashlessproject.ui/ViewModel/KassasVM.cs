@@ -47,15 +47,9 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             get
             {
-                if (_selectedRE == null)
-                {
-                    if (Selected == null) SelectedRE = new RegisterEmployee() { From = DateTime.Now, Until = DateTime.Now, RegisterID = 1 };
-                    else SelectedRE = new RegisterEmployee() { From = DateTime.Now, Until = DateTime.Now, RegisterID = Selected.Id};
-                    return _selectedRE;
-                }
-                else return _selectedRE;
+               return _selectedRE;
             }
-            set { _selectedRE = value; RaisePropertyChanged("SelectedRE");}
+            set { _selectedRE = value; RaisePropertyChanged("SelectedRE"); RaisePropertyChanged("InsertRegEmpCommand"); }
         }  
 
         private Register _selected;
@@ -76,12 +70,21 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
             get { return _medewerkers;}
             set { _medewerkers = value; RaisePropertyChanged("Medewerkers"); }
         }
+        private string _alert;
+        public string Alert
+        {
+            get { return _alert; }
+            set { _alert = value; RaisePropertyChanged("Alert"); }
+        }
         #endregion
 
         #region Icommands
         public ICommand InsertRegEmpCommand
         {
-            get { return new RelayCommand(InsertRegEmp); }
+            get {
+                if (SelectedRE != null) return new RelayCommand(InsertRegEmp, SelectedRE.IsValid);
+                else return null;
+            }
         }
         public ICommand NieuwCommand
         {
@@ -94,6 +97,10 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         public ICommand TerugCommand
         {
             get { return new RelayCommand(Terug); }
+        }
+        public ICommand WindowLoadedCommand
+        {
+            get { return new RelayCommand(WindowLoaded); }
         }
         #endregion
 
@@ -122,7 +129,14 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 {
                     string json = await res.Content.ReadAsStringAsync();
                     KassasBediening = JsonConvert.DeserializeObject<ObservableCollection<RegisterEmployee>>(json);
-                    
+                    if (KassasBediening.Count > 0)
+                    {
+                        SelectedRE = KassasBediening[0];
+                    }
+                    else
+                    {
+                        SelectedRE = new RegisterEmployee() { From = DateTime.Now, Until = DateTime.Now, RegisterID = Selected.Id };
+                    }
                 }
             }
         }
@@ -156,6 +170,11 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                     if (res.IsSuccessStatusCode)
                     {
                         GetKassaBediening();
+                        Alert = "Succesvol toegevoegd.";
+                    }
+                    else
+                    {
+                        Alert = "Fout bij het toevoegen.";
                     }
                 }
             }
@@ -178,6 +197,11 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                         if (result >= 1)
                         {
                             GetKassaBediening();
+                            Alert = "Sucesvol verwijderd.";
+                        }
+                        else
+                        {
+                            Alert = "Je kan items die niet zijn opgeslagen niet verwijderen.";
                         }
                     }
                 }
@@ -203,12 +227,17 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
             appvm.ChangePage(new MenuVM());
+            RegisterEmployee.DoValidation = false;
         }
         private bool KanDelete()
         {
             if (SelectedRE != null) return true;
             return false;
-        } 
+        }
+        private void WindowLoaded()
+        {
+            RegisterEmployee.DoValidation = true;
+        }
         #endregion
     }
 }

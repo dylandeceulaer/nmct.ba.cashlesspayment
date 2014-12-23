@@ -1,0 +1,44 @@
+﻿<Application x:Class="nmct.ba.cashlessproject.uiKassa.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="View/MainWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="Blauw" Color="#0079D3"/>
+        <Style x:Key="TextBlockBox" TargetType="TextBlock">
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="5,10,5,10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="txbImage" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBox}">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style x:Key="stackImage" TargetType="StackPanel">
+            <Setter Property="Margin" Value="27,20,0,0"/>
+        </Style>
+        <Style x:Key="NaamKassa" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="10"/>
+
+        </Style>
+        <Style x:Key="HoeveelKassa" TargetType="TextBlock" BasedOn="{StaticResource NaamKassa}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style x:Key="stkHoeveel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="MinWidth" Value="26"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+        <Style x:Key="stkItem" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5,0,5,0"/>
+
+        </Style>
+    </Application.Resources>
+</Application>

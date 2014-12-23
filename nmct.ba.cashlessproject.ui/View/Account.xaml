@@ -31,7 +31,7 @@
             <TextBlock Text="oud wachtwoord"/>
             <TextBox Text="{Binding OudPaswoord}"/>
             <TextBlock Text="nieuw wachtwoord"/>
-            <TextBox Text="{Binding NieuwPaswoord}"/>
+            <TextBox Text="{Binding NieuwPaswoord, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
             <TextBlock Text="wachtwoord bevestigen"/>
             <TextBox Text="{Binding NieuwPaswoordBevestiging}"/>
             

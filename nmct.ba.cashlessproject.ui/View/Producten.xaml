@@ -58,7 +58,7 @@
             <TextBox Text="{Binding Selected.Price, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
             <TextBlock Text="Categorie"/>
             <ComboBox Style="{StaticResource cboMng}" ItemsSource="{Binding Categorien}" DisplayMemberPath="CategoryName" SelectedValuePath="Id" SelectedValue="{Binding Selected.Category, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-            <TextBlock Text="{Binding Alert}"/>
+            <TextBlock Text="{Binding Alert}" FontSize="13"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}" >
             <Button Content="Nieuw" Style="{StaticResource BtnMngOnder}" Command="{Binding NieuwCommand}"/>

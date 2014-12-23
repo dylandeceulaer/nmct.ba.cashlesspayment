@@ -5,8 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.ui.ViewModel"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="525">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
     <UserControl.DataContext>
         <vm:KassasVM/>
     </UserControl.DataContext>
@@ -56,7 +62,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <TextBlock Text="Plannen:" Margin="12,0,10,0"/>
-            <ComboBox Margin="12,10,10,10" ItemsSource="{Binding Medewerkers}" SelectedValuePath="Id" SelectedValue="{Binding Path=SelectedRE.EmployeeID}">
+            <ComboBox Margin="12,10,10,10" ItemsSource="{Binding Medewerkers}" SelectedValuePath="Id" SelectedValue="{Binding Path=SelectedRE.EmployeeID, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
 
@@ -77,6 +83,7 @@
                 <TextBlock Text="tot"/>
                 <DatePicker Width="100" SelectedDate="{Binding Path=SelectedRE.Until, Mode=TwoWay,FallbackValue={x:Static sys:DateTime.Today}}"/>
             </StackPanel>
+            <TextBlock Text="{Binding Alert}" FontSize="12" Margin="12,10,10,5" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Style="{StaticResource ResourceKey=stKnoppen}" >
             <Button Content="Verwijder" Style="{StaticResource BtnMngOnderDrie}" Command="{Binding DeleteRegEmpCommand}"/>

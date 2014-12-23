@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace nmct.ba.cashlessproject.ui.View
+namespace nmct.ba.cashlessproject.uiKassa.View
 {
     /// <summary>
-    /// Interaction logic for Kassa.xaml
+    /// Interaction logic for Aanmelden.xaml
     /// </summary>
-    public partial class Kassa : UserControl
+    public partial class Aanmelden : UserControl
     {
-        public Kassa()
+        public Aanmelden()
         {
             InitializeComponent();
         }

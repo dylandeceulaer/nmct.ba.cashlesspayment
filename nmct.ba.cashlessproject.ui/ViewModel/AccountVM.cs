@@ -67,31 +67,39 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         {
             if (OudPaswoord == ApplicationVM.password)
             {
-                if (NieuwPaswoord == NieuwPaswoordBevestiging)
+                if (NieuwPaswoord.Length > 3 && NieuwPaswoord.Length < 30)
                 {
-                    using (HttpClient client = new HttpClient())
+                    if (NieuwPaswoord == NieuwPaswoordBevestiging)
                     {
-                        List<string> Wachtwoorden = new List<string>();
-                        Wachtwoorden.Add(ApplicationVM.user);
-                        Wachtwoorden.Add(ApplicationVM.password);
-                        Wachtwoorden.Add(NieuwPaswoord);
 
-                        string json = JsonConvert.SerializeObject(Wachtwoorden);
+                        using (HttpClient client = new HttpClient())
+                        {
+                            List<string> Wachtwoorden = new List<string>();
+                            Wachtwoorden.Add(ApplicationVM.user);
+                            Wachtwoorden.Add(ApplicationVM.password);
+                            Wachtwoorden.Add(NieuwPaswoord);
 
-                        HttpResponseMessage res = await client.PutAsync("http://localhost:5054/api/organisationAccount", new StringContent(json, Encoding.UTF8, "application/json"));
-                        if (res.IsSuccessStatusCode)
-                        {
-                            Alert = "Wachtwoord succesvol veranderd.";
+                            string json = JsonConvert.SerializeObject(Wachtwoorden);
+
+                            HttpResponseMessage res = await client.PutAsync("http://localhost:5054/api/organisationAccount", new StringContent(json, Encoding.UTF8, "application/json"));
+                            if (res.IsSuccessStatusCode)
+                            {
+                                Alert = "Wachtwoord is veranderd.";
+                            }
+                            else
+                            {
+                                Alert = "Fout bij het opslaan.";
+                            }
                         }
-                        else
-                        {
-                            Alert = "Fout bij het opslaan.";
-                        }
+                    }
+                    else
+                    {
+                        Alert = "De bevestiging is incorrect.";
                     }
                 }
                 else
                 {
-                    Alert = "De bevestiging is incorrect.";
+                    Alert = "Moet 4 tot 30 karakters bevatten.";
                 }
             }
             else

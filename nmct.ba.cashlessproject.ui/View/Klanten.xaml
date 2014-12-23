@@ -103,7 +103,7 @@
                 </StackPanel>
             
             </StackPanel>
-            <TextBlock x:Name="ErrorBlock" Text="{Binding Alert}">
+            <TextBlock x:Name="ErrorBlock" Text="{Binding Alert}" FontSize="13">
                 
             </TextBlock>
         </StackPanel>
