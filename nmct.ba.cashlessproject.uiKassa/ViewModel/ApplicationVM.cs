@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight;
-//using nmct.ba.navigatiedemo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
         private void GetToken()
         {
             OAuth2Client client = new OAuth2Client(new Uri("http://localhost:5054/token"));
-            token = client.RequestResourceOwnerPasswordAsync("ad", "pass").Result;
+            token = client.RequestResourceOwnerPasswordAsync(Properties.Settings.Default.Username, Properties.Settings.Default.Password).Result;
         }
         
 

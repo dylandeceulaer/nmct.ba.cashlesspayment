@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.model 
 {
-    public class Customer : IDataErrorInfo
+    public class Customer : ObservableObject, IDataErrorInfo 
     {
         public static bool DoValidation { get; set; }
 
@@ -33,7 +34,7 @@ namespace nmct.ba.cashlessproject.model
         public float Balance
         {
             get { return _balance; }
-            set { _balance = value; }
+            set { _balance = value; RaisePropertyChanged("Balance"); }
         }
 
         private byte[] _picture;
@@ -88,6 +89,14 @@ namespace nmct.ba.cashlessproject.model
             get { return _city; }
             set { _city = value; }
         }
+        private string _card;
+
+        public string Card
+        {
+            get { return _card; }
+            set { _card = value; }
+        }
+        
 
         public string Error
         {

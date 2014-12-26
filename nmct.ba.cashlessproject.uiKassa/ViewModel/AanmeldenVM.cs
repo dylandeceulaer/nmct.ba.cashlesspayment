@@ -20,7 +20,7 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
         public string Name
         {
             get { return "Aanmelden"; }
-            
+
         }
         public AanmeldenVM()
         {
@@ -41,7 +41,7 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
             using (HttpClient client = new HttpClient())
             {
                 client.SetBearerToken(ApplicationVM.token.AccessToken);
-                string uri = "http://localhost:5054/api/Employee" + "?code="+code;
+                string uri = "http://localhost:5054/api/Employee" + "?code=" + code;
                 HttpResponseMessage res = await client.GetAsync(uri);
                 if (res.IsSuccessStatusCode)
                 {
@@ -57,11 +57,25 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
                         ApplicationVM.CurrentEmployee = nieuw.Id;
                         App.Current.Dispatcher.Invoke(() =>
                         {
-                            
+
                             ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
                             appvm.ChangePage(new KassaVM());
                         });
                     }
+                }
+            }
+        }
+        private async void Log(Errorlog e)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string json = JsonConvert.SerializeObject(e);
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+
+                HttpResponseMessage response = await client.PostAsync("http://localhost:5054/api/Errorlog", new StringContent(json, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("Error has been logged");
                 }
             }
         }
@@ -83,6 +97,12 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
             }
             catch (Exception ex)
             {
+                Log(new Errorlog()
+                {
+                    Message = ex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = ex.StackTrace
+                });
                 Console.WriteLine(ex.Message);
             }
         }
@@ -97,6 +117,12 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
             }
             catch (Exception ex)
             {
+                Log(new Errorlog()
+                {
+                    Message = ex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = ex.StackTrace
+                });
                 Console.WriteLine("Kaardlezer: " + ex.Message);
             }
         }
@@ -125,15 +151,27 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
                     BEID_EId doc = card.getID();
 
                     GetEmployee(doc.getNationalNumber());
-                    
+
                 }
                 catch (BEID_Exception beex)
                 {
+                    Log(new Errorlog()
+                    {
+                        Message = beex.Message,
+                        RegisterID = int.Parse(Properties.Settings.Default.ID),
+                        Stacktrace = beex.StackTrace
+                    });
                     LoginText = "Leg uw kaart op de cardreader om in the loggen.";
                     Console.WriteLine(beex.Message);
                 }
                 catch (Exception ex)
                 {
+                    Log(new Errorlog()
+                    {
+                        Message = ex.Message,
+                        RegisterID = int.Parse(Properties.Settings.Default.ID),
+                        Stacktrace = ex.StackTrace
+                    });
                     LoginText = "Foutieve kaart.";
                     Console.WriteLine(ex.Message);
                 }

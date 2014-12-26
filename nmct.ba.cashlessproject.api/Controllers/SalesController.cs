@@ -28,10 +28,10 @@ namespace nmct.ba.cashlessproject.api.Controllers
             ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
             return SalesDA.DeleteSales(id, p.Claims);
         }
-        public int Insert(Sales Sales)
+        public int Insert(Purchase pur)
         {
             ClaimsPrincipal p = RequestContext.Principal as ClaimsPrincipal;
-            return SalesDA.InsertSales(Sales, p.Claims);
+            return CustomersDA.DoPurchase(pur, p.Claims);
         }
     }
 }

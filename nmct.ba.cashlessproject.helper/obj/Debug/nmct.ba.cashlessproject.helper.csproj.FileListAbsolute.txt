@@ -4,6 +4,6 @@ C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.helper\obj\Debug\nmct.ba.cashlessproject.helper.pdb
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.helper\bin\Debug\nmct.ba.cashlessproject.helper.dll
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.helper\bin\Debug\nmct.ba.cashlessproject.helper.pdb
-C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.helper\obj\Debug\nmct.ba.cashlessproject.helper.csprojResolveAssemblyReference.cache
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.helper\obj\Debug\nmct.ba.cashlessproject.helper.dll
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.helper\obj\Debug\nmct.ba.cashlessproject.helper.pdb
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.helper\obj\Debug\nmct.ba.cashlessproject.helper.csprojResolveAssemblyReference.cache

@@ -260,7 +260,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 catch (Exception ex)
                 {
                     MessageBoxResult msg = MessageBox.Show("Fout bij het wegschrijven van het bestand.", "Fout", MessageBoxButton.OK);
-
+                    Console.WriteLine(ex.Message);
                 }
             }
         }

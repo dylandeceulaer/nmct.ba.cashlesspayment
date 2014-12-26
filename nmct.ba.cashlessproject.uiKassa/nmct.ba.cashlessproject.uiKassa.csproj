@@ -89,22 +89,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="helpers\CardReader.cs" />
-    <Compile Include="helpers\CardReaderOud.cs" />
     <Compile Include="ViewModel\AanmeldenVM.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
     <Compile Include="ViewModel\Ipage.cs" />
     <Compile Include="ViewModel\KassaVM.cs" />
     <Compile Include="ViewModel\ObservableObject.cs" />
-    <Compile Include="ViewModel\PageOneVM.cs" />
     <Compile Include="View\Aanmelden.xaml.cs">
       <DependentUpon>Aanmelden.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Converters\StringToImageConverter.cs" />
     <Compile Include="View\Kassa.xaml.cs">
       <DependentUpon>Kassa.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PageOne.xaml.cs">
-      <DependentUpon>PageOne.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Aanmelden.xaml">
       <SubType>Designer</SubType>
@@ -126,10 +121,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\PageOne.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -165,9 +156,14 @@
       <Name>nmct.ba.cashlessproject.model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="View\images\noimage.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="View\images\nfc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

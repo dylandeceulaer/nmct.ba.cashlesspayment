@@ -41,7 +41,7 @@ namespace nmct.ba.cashlessproject.api.Models
         public static Employee GetEployeeByCode(IEnumerable<Claim> claims,string code)
         {
             Employee res = new Employee();
-            string sql = "SELECT ID, EmployeeName, FirstName, Street,Number,PostalCode,City, Phone, Email FROM Employee WHERE Active=1 AND code=@code";
+            string sql = "SELECT ID, EmployeeName, FirstName, Street,Number,PostalCode,City, Phone, Email FROM Employee WHERE Active=1 AND Card=@code";
             DbParameter par = Database.AddParameter(CONNSTR, "code", code);      
             DbDataReader data = Database.GetData(Database.GetConnection(ConnectionString.Create(claims)), sql,par);
             while (data.Read())

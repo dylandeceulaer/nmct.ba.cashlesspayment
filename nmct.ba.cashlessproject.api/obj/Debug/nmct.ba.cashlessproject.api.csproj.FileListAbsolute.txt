@@ -211,3 +211,16 @@ C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\obj\Debug\nmct.ba.cashlessproject.api.csprojResolveAssemblyReference.cache
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\obj\Debug\nmct.ba.cashlessproject.api.dll
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\obj\Debug\nmct.ba.cashlessproject.api.pdb
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.dll
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.Extras.dll
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.Platform.dll
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\System.Windows.Interactivity.dll
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.pdb
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.xml
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.Extras.xml
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.Platform.pdb
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\GalaSoft.MvvmLight.Platform.xml
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.api\bin\Microsoft.Practices.ServiceLocation.xml

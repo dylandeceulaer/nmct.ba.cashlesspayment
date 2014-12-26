@@ -217,6 +217,21 @@ namespace nmmct.ba.cashlessproject
             return par;
         }
 
+        public static DbTransaction BeginTransaction(DbConnection con)
+        {
+            try
+            {
+                return con.BeginTransaction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                ReleaseConnection(con);
+                throw;
+            }
+        }
+
+
         public static DbTransaction BeginTransaction(string ConnectionString)
         {
             DbConnection con = null;
