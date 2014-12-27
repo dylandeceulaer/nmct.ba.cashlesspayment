@@ -26,7 +26,7 @@ namespace nmct.ba.cashlessproject.model
         public string CustomerName
         {
             get { return _customerName; }
-            set { _customerName = value; }
+            set { _customerName = value; RaisePropertyChanged("CustomerName"); }
         }
         
         private float _balance;
@@ -51,7 +51,7 @@ namespace nmct.ba.cashlessproject.model
         public string FirstName
         {
             get { return _firstName; }
-            set { _firstName = value; }
+            set { _firstName = value; RaisePropertyChanged("FirstName"); }
         }
         
         private string _street;
@@ -60,7 +60,7 @@ namespace nmct.ba.cashlessproject.model
         public string Street
         {
             get { return _street; }
-            set { _street = value; }
+            set { _street = value; RaisePropertyChanged("Street"); }
         }
         
         private string _number;
@@ -69,7 +69,7 @@ namespace nmct.ba.cashlessproject.model
         public string Number
         {
             get { return _number; }
-            set { _number = value; }
+            set { _number = value; RaisePropertyChanged("Number"); }
         }
         
         private string _postalCode;
@@ -78,7 +78,7 @@ namespace nmct.ba.cashlessproject.model
         public string PostalCode
         {
             get { return _postalCode; }
-            set { _postalCode = value; }
+            set { _postalCode = value; RaisePropertyChanged("PostalCode"); }
         }
         
         private string _city;
@@ -87,7 +87,7 @@ namespace nmct.ba.cashlessproject.model
         public string City
         {
             get { return _city; }
-            set { _city = value; }
+            set { _city = value; RaisePropertyChanged("City"); }
         }
         private string _card;
 

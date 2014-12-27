@@ -25,7 +25,7 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
         public AanmeldenVM()
         {
             GetCardReader();
-            LoginText = "Leg uw kaart op de cardreader om in the loggen.";
+            LoginText = "Plaats uw kaart op de cardreader om in the loggen.";
         }
         private string _loginText;
 
@@ -161,7 +161,7 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
                         RegisterID = int.Parse(Properties.Settings.Default.ID),
                         Stacktrace = beex.StackTrace
                     });
-                    LoginText = "Leg uw kaart op de cardreader om in the loggen.";
+                    LoginText = "Plaats uw kaart op de cardreader om in the loggen.";
                     Console.WriteLine(beex.Message);
                 }
                 catch (Exception ex)
@@ -178,7 +178,7 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
             }
             else
             {
-                LoginText = "Leg uw kaart op de cardreader om in the loggen.";
+                LoginText = "Plaats uw kaart op de cardreader om in the loggen.";
             }
         }
         #endregion

@@ -1,20 +1,22 @@
 ﻿using be.belgium.eid;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
 using nmct.ba.cashlessproject.model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
 {
     class KlantBeheerVM : ObservableObject, Ipage
     {
         private BEID_ReaderContext reader;
-        private bool eerste = true;
         private uint stop;
         public string Name
         {
@@ -24,6 +26,13 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
         {
             GetCardReader();
             Klant = ApplicationVM.CurrentCustomer;
+            Alert = "Voeg Biljetten toe om uw kaart op te waarderen.";
+            Geld = new ObservableCollection<Money>();
+            Geld.Add(new Money() {count = 2,value=5 });
+            Geld.Add(new Money() { count = 1, value = 10 });
+            Geld.Add(new Money() { count = 1, value = 20});
+            Geld.Add(new Money() { count = 1, value = 50 });
+            GetTotaal();
         }
 
         private Customer _klant;
@@ -33,8 +42,32 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
             get { return _klant; }
             set { _klant = value; }
         }
-        
+        private string _alert;
 
+        public string Alert
+        {
+            get { return _alert; }
+            set { _alert = value; RaisePropertyChanged("Alert"); }
+        }
+        private ObservableCollection<Money> _geld;
+
+        public ObservableCollection<Money> Geld
+        {
+            get { return _geld; }
+            set { _geld = value; RaisePropertyChanged("Geld"); GetTotaal(); }
+        }
+        private int _totaal;
+
+        public int Totaal
+        {
+            get { return _totaal; }
+            set { _totaal = value; }
+        }
+
+        public ICommand AddMoneyCommand
+        {
+            get { return new RelayCommand(AddMoney, KanUpdaten); }
+        }
         #region CRUD
 
         private async void Log(Errorlog e)
@@ -52,31 +85,49 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
             }
         }
 
-        private async void InsertCustomer()
+        private async void AddMoney()
         {
-            //using (HttpClient client = new HttpClient())
-            //{
-            //    Klant.Card = ApplicationVM.Card;
-            //    string json = JsonConvert.SerializeObject(Klant);
-            //    client.SetBearerToken(ApplicationVM.token.AccessToken);
-            //    HttpResponseMessage res = await client.PostAsync("http://localhost:5054/api/customer", new StringContent(json, Encoding.UTF8, "application/json"));
-            //    if (res.IsSuccessStatusCode)
-            //    {
-            //        string jsonres = await res.Content.ReadAsStringAsync();
-            //        int result = JsonConvert.DeserializeObject<int>(jsonres);
-            //        if (result > 0)
-            //        {
-            //            Alert = "Uw kaart is succesvol geregistreerd. Neem de kaart van de kaartlezer om in te loggen.";
-            //        }
-            //        else
-            //        {
-            //            Alert = "Er is een fout opgetreden bij het registreren. Neem contact op met de verantwoordelijke.";
-            //        }
-            //    }
-            //}
+            using (HttpClient client = new HttpClient())
+            {
+                Klant.Balance += Totaal;
+                string json = JsonConvert.SerializeObject(Klant);
+                client.SetBearerToken(ApplicationVM.token.AccessToken);
+                HttpResponseMessage res = await client.PutAsync("http://localhost:5054/api/customer", new StringContent(json, Encoding.UTF8, "application/json"));
+                if (res.IsSuccessStatusCode)
+                {
+                    string jsonres = await res.Content.ReadAsStringAsync();
+                    int result = JsonConvert.DeserializeObject<int>(jsonres);
+                    if (result == 1)
+                    {
+                        Geld = new ObservableCollection<Money>();
+                        Alert = "Uw balans is bijgewerkt, u kan uw kaart nu wegnemen.";
+
+                    }
+                    else
+                    {
+                        Alert = "Fout bij het opslaan, neem contact op met de beheerder.";
+                    }
+                }
+            }
         }
 
         #endregion
+
+        private void GetTotaal()
+        {
+            Totaal = 0;
+            foreach (Money g in Geld)
+            {
+                Totaal = Totaal + (g.count * g.value);
+            }
+        }
+
+        private bool KanUpdaten()
+        {
+            if (Geld.Count == 0) return false;
+            else return true;
+        }
+
         #region CardReader
         private void AttachEvents()
         {

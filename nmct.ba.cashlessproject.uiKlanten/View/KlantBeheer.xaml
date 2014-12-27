@@ -9,6 +9,7 @@
     <UserControl.DataContext>
         <vm:KlantBeheerVM/>
     </UserControl.DataContext>
+    
     <Grid Background="GhostWhite">
         <StackPanel>
             <DockPanel Background="DodgerBlue" Width="830" HorizontalAlignment="Right">
@@ -24,11 +25,30 @@
                 <TextBlock HorizontalAlignment="Left"  Text="{Binding Klant.Balance, StringFormat={}€{0}}" FontSize="30" FontWeight="Bold" Foreground="White" Margin="30,10"/>
                 </DockPanel>
             </DockPanel>
-            <TextBlock Margin="0,20" FontSize="22" Width="800" HorizontalAlignment="Center" TextAlignment="Center" Text="Voeg Biljetten toe om uw kaart op te waarderen." />
-            <ListBox Width="300" Height="200">
-                
+            <TextBlock Margin="0,20" FontSize="22" Width="800" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Alert}" />
+            <ListBox Width="200" Height="230" ItemsSource="{Binding Geld}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="4,1">
+                            <DockPanel Width="161">
+                                <Border BorderBrush="LightGray" BorderThickness="0,0,1,0">
+                                    <TextBlock Text="{Binding count}" Style="{StaticResource stkHoeveel}" />
+                                </Border>
+                                <TextBlock Text="{Binding value, StringFormat={}€{0}}" Style="{StaticResource stkItem}"/>
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
-            <Button Background="DodgerBlue" Width="300" Height="40" Margin="20" VerticalContentAlignment="Center" Content="Accepteer" Foreground="White" FontSize="22" FontWeight="Bold"/>
+            <Border BorderBrush="DarkGray" BorderThickness="1" Width="200">
+                <DockPanel Width="198" Background="White">
+                    <Border BorderBrush="LightGray" BorderThickness="0,0,1,0">
+                        <TextBlock Text="tot:" Style="{StaticResource stkHoeveel}" Margin="11,0,0,0" Padding="0,4"/>
+                    </Border>
+                    <TextBlock Text="{Binding Totaal, StringFormat={}€{0}}" Style="{StaticResource stkItem}" Padding="0,4"/>
+                </DockPanel>
+            </Border>
+            <Button Command="{Binding AddMoneyCommand}" Background="DodgerBlue" Width="200" Height="40" Margin="20" VerticalContentAlignment="Center" Content="Accepteer" Foreground="White" FontSize="22" FontWeight="Bold" BorderThickness="0"/>
         </StackPanel>
         
     </Grid>

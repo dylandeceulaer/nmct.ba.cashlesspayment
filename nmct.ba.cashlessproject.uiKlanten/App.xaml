@@ -16,10 +16,18 @@
                     <Border Width="15" Height="15" Margin="0 0 3 0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Red" CornerRadius="10" ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
                         <TextBlock HorizontalAlignment="center" VerticalAlignment="center" FontWeight="Bold" Foreground="white" Text="!" />
                     </Border>
-                
                 </Grid>
-               
             </StackPanel>
         </ControlTemplate>
+        <Style x:Key="stkHoeveel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="MinWidth" Value="26"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+        <Style x:Key="stkItem" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5,0,5,0"/>
+        </Style>
     </Application.Resources>
 </Application>

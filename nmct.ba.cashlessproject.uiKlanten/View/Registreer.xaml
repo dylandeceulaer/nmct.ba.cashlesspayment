@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.uiKlanten.ViewModel"
              xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="830">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
+        </intr:EventTrigger>
+        <intr:EventTrigger EventName="Focus">
             <intr:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
         </intr:EventTrigger>
     </intr:Interaction.Triggers>
@@ -30,7 +34,7 @@
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="22"/>
         </Style>
-        <Style TargetType="Button">
+        <Style TargetType="Button" x:Key="knop">
             <Setter Property="Background" Value="DodgerBlue"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Height" Value="40"/>
@@ -39,7 +43,15 @@
             <Setter Property="Margin" Value="40,40,0,0"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
-        
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="DodgerBlue"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="49"/>
+            <Setter Property="Width" Value="69"/>
+        </Style>
     </UserControl.Resources>
     
     
@@ -48,29 +60,106 @@
             <TextBlock Text="{Binding Hoofding}" FontSize="22" Width="800"/>
             <StackPanel DockPanel.Dock="Left">
                 <TextBlock Text="Naam" Grid.Row="1" Grid.Column="1"/>
-                <TextBox Text="{Binding Klant.CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                <TextBox Text="{Binding Klant.CustomerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+                    <intr:Interaction.Triggers>
+                        <intr:EventTrigger EventName="GotFocus">
+                            <intr:InvokeCommandAction Command="{Binding GetFocusedElementCommand}" CommandParameter="CustomerName"/>
+                        </intr:EventTrigger>
+                    </intr:Interaction.Triggers>
+                </TextBox>
             </StackPanel>
             <StackPanel DockPanel.Dock="Left">
                 <TextBlock Text="Voornaam" Grid.Row="1" Grid.Column="1"/>
-                <TextBox Text="{Binding Klant.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                <TextBox Text="{Binding Klant.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+                    <intr:Interaction.Triggers>
+                        <intr:EventTrigger EventName="GotFocus">
+                            <intr:InvokeCommandAction Command="{Binding GetFocusedElementCommand}" CommandParameter="FirstName"/>
+                        </intr:EventTrigger>
+                    </intr:Interaction.Triggers>
+                </TextBox>
             </StackPanel>
             <StackPanel DockPanel.Dock="Left">
                 <TextBlock Text="Straat + nr" Grid.Row="1" Grid.Column="1"/>
                 <DockPanel>
-                    <TextBox Width="160" DockPanel.Dock="Left" Text="{Binding Klant.Street, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-                    <TextBox Margin="5,0,0,0" DockPanel.Dock="Right" Text="{Binding Klant.Number, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                    <TextBox Width="160" DockPanel.Dock="Left" Text="{Binding Klant.Street, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+                        <intr:Interaction.Triggers>
+                            <intr:EventTrigger EventName="GotFocus">
+                                <intr:InvokeCommandAction Command="{Binding GetFocusedElementCommand}" CommandParameter="Street"/>
+                            </intr:EventTrigger>
+                        </intr:Interaction.Triggers>
+                    </TextBox>
+                    <TextBox Margin="5,0,0,0" DockPanel.Dock="Right" Text="{Binding Klant.Number, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+                        <intr:Interaction.Triggers>
+                            <intr:EventTrigger EventName="GotFocus">
+                                <intr:InvokeCommandAction Command="{Binding GetFocusedElementCommand}" CommandParameter="Number"/>
+                            </intr:EventTrigger>
+                        </intr:Interaction.Triggers>
+                    </TextBox>
                 </DockPanel>
             </StackPanel>
             <StackPanel DockPanel.Dock="Left">
                 <TextBlock Text="Postcode" Grid.Row="1" Grid.Column="1"/>
-                <TextBox Text="{Binding Klant.PostalCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                <TextBox Text="{Binding Klant.PostalCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+                    <intr:Interaction.Triggers>
+                        <intr:EventTrigger EventName="GotFocus">
+                            <intr:InvokeCommandAction Command="{Binding GetFocusedElementCommand}" CommandParameter="PostalCode"/>
+                        </intr:EventTrigger>
+                    </intr:Interaction.Triggers>
+                </TextBox>
             </StackPanel>
             <StackPanel DockPanel.Dock="Left">
                 <TextBlock Text="Gemeente" Grid.Row="1" Grid.Column="1"/>
-                <TextBox Text="{Binding Klant.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                <TextBox Text="{Binding Klant.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+                    <intr:Interaction.Triggers>
+                        <intr:EventTrigger EventName="GotFocus">
+                            <intr:InvokeCommandAction Command="{Binding GetFocusedElementCommand}" CommandParameter="City"/>
+                        </intr:EventTrigger>
+                    </intr:Interaction.Triggers>
+                </TextBox>
             </StackPanel>
-            <Button Content="Registreer" Command="{Binding InsertCustomerCommand}"/>
+            <Button Content="Registreer" Command="{Binding InsertCustomerCommand}" Style="{StaticResource knop}"/>
             <TextBlock TextAlignment="Center" Width="800" Text="{Binding Alert}" Margin="0,10,0,0" FontSize="18"/>
+        </WrapPanel>
+        <WrapPanel Height="231" Width="791" VerticalAlignment="Bottom" Margin="0,0,0,10">
+            <Button Content="1" Command="{Binding KeyboardCommand}" CommandParameter="1"/>
+            <Button Content="2" Command="{Binding KeyboardCommand}" CommandParameter="2"/>
+            <Button Content="3" Command="{Binding KeyboardCommand}" CommandParameter="3"/>
+            <Button Content="4" Command="{Binding KeyboardCommand}" CommandParameter="4"/>
+            <Button Content="5" Command="{Binding KeyboardCommand}" CommandParameter="5"/>
+            <Button Content="6" Command="{Binding KeyboardCommand}" CommandParameter="6"/>
+            <Button Content="7" Command="{Binding KeyboardCommand}" CommandParameter="7"/>
+            <Button Content="8" Command="{Binding KeyboardCommand}" CommandParameter="8"/>
+            <Button Content="9" Command="{Binding KeyboardCommand}" CommandParameter="9"/>
+            <Button Content="0" Command="{Binding KeyboardCommand}" CommandParameter="0"/>
+            <Button Content="A" Command="{Binding KeyboardCommand}" CommandParameter="a"/>
+            <Button Content="Z" Command="{Binding KeyboardCommand}" CommandParameter="z"/>
+            <Button Content="E" Command="{Binding KeyboardCommand}" CommandParameter="e"/>
+            <Button Content="R" Command="{Binding KeyboardCommand}" CommandParameter="r"/>
+            <Button Content="T" Command="{Binding KeyboardCommand}" CommandParameter="t"/>
+            <Button Content="Y" Command="{Binding KeyboardCommand}" CommandParameter="y"/>
+            <Button Content="U" Command="{Binding KeyboardCommand}" CommandParameter="u"/>
+            <Button Content="I" Command="{Binding KeyboardCommand}" CommandParameter="i"/>
+            <Button Content="O" Command="{Binding KeyboardCommand}" CommandParameter="o"/>
+            <Button Content="P" Command="{Binding KeyboardCommand}" CommandParameter="p"/>
+            <Button Content="Q" Command="{Binding KeyboardCommand}" CommandParameter="q"/>
+            <Button Content="S" Command="{Binding KeyboardCommand}" CommandParameter="s"/>
+            <Button Content="D" Command="{Binding KeyboardCommand}" CommandParameter="d"/>
+            <Button Content="F" Command="{Binding KeyboardCommand}" CommandParameter="f"/>
+            <Button Content="G" Command="{Binding KeyboardCommand}" CommandParameter="g"/>
+            <Button Content="H" Command="{Binding KeyboardCommand}" CommandParameter="h"/>
+            <Button Content="J" Command="{Binding KeyboardCommand}" CommandParameter="j"/>
+            <Button Content="K" Command="{Binding KeyboardCommand}" CommandParameter="k"/>
+            <Button Content="L" Command="{Binding KeyboardCommand}" CommandParameter="l"/>
+            <Button Content="M" Command="{Binding KeyboardCommand}" CommandParameter="m"/>
+            <Button Content="W" Command="{Binding KeyboardCommand}" CommandParameter="w"/>
+            <Button Content="X" Command="{Binding KeyboardCommand}" CommandParameter="x"/>
+            <Button Content="C" Command="{Binding KeyboardCommand}" CommandParameter="c"/>
+            <Button Content="V" Command="{Binding KeyboardCommand}" CommandParameter="v"/>
+            <Button Content="B" Command="{Binding KeyboardCommand}" CommandParameter="b"/>
+            <Button Content="N" Command="{Binding KeyboardCommand}" CommandParameter="n"/>
+            <Button Width="196" Command="{Binding KeyboardCommand}" CommandParameter=" "/>
+            <Button Content="RETURN" Width="100" Command="{Binding KeyboardCommand}" CommandParameter="return"/>
+
         </WrapPanel>
     </Grid>
 </UserControl>

@@ -24,3 +24,17 @@ C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.Platform.xml
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.pdb
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.xml
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.model\obj\Debug\nmct.ba.cashlessproject.model.csprojResolveAssemblyReference.cache

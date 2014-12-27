@@ -17,6 +17,7 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
     {
         private BEID_ReaderContext reader;
         private uint stop;
+        private string focused;
         public string Name
         {
             get { return "Registreer"; }
@@ -79,8 +80,17 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
         {
             get { return new RelayCommand(WindowLoaded); }
         }
+
+        public ICommand KeyboardCommand
+        {
+            get { return new RelayCommand<string>(KeyboardC); }
+        }
+        public ICommand GetFocusedElementCommand
+        {
+            get { return new RelayCommand<string>(GetFocusedElement); }
+        }
         #region CRUD
-        
+
         private async void Log(Errorlog e)
         {
             using (HttpClient client = new HttpClient())
@@ -127,6 +137,42 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
         private void WindowLoaded()
         {
             Customer.DoValidation = true;
+        }
+        private void KeyboardC(string val)
+        {
+            switch (focused)
+            {
+                case "CustomerName":
+                    if (val == "return") Klant.CustomerName = Klant.CustomerName.Remove(Klant.CustomerName.Length -1,1);
+                    else Klant.CustomerName += val;
+                    break;
+                case "FirstName":
+                    if (val == "return") Klant.FirstName = Klant.FirstName.Remove(Klant.FirstName.Length - 1, 1);
+                    else Klant.FirstName += val;
+                    break;
+                case "Street":
+                    if (val == "return") Klant.Street = Klant.Street.Remove(Klant.Street.Length - 1, 1);
+                    else Klant.Street += val;
+                    break;
+                case "PostalCode":
+                    if (val == "return") Klant.PostalCode = Klant.PostalCode.Remove(Klant.PostalCode.Length - 1, 1);
+                    else Klant.PostalCode += val;
+                    break;
+                case "Number":
+                    if (val == "return") Klant.Number = Klant.Number.Remove(Klant.Number.Length - 1, 1);
+                    else Klant.Number += val;
+                    break;
+                case "City":
+                    if (val == "return") Klant.City = Klant.City.Remove(Klant.City.Length - 1, 1);
+                    else Klant.City += val;
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void GetFocusedElement(string element)
+        {
+            focused = element;
         }
 
         #region CardReader

@@ -1,7 +1,5 @@
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\nmct.ba.cashlessproject.uiKassa.csproj.App.config
-C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\View\PageOne.baml
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\View\MainWindow.g.cs
-C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\View\PageOne.g.cs
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\App.g.cs
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\nmct.ba.cashlessproject.uiKassa_MarkupCompile.cache
@@ -39,7 +37,6 @@ C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\View\Kassa.g.cs
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\bin\Debug\nmct.ba.cashlessproject.model.dll
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\bin\Debug\nmct.ba.cashlessproject.model.pdb
-C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\bin\Debug\beid35libCS.xml
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\obj\Debug\nmct.ba.cashlessproject.uiKassa.csprojResolveAssemblyReference.cache
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\bin\Debug\Thinktecture.IdentityModel.Client.dll
 C:\Users\dylan\Documents\GitHub\nmct.ba.cashlessproject\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKassa\bin\Debug\Thinktecture.IdentityModel.Client.pdb
