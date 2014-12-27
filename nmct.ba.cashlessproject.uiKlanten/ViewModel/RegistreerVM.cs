@@ -60,6 +60,14 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
             }
             set { _klant = value; RaisePropertyChanged("Klant"); RaisePropertyChanged("InsertCustomerCommand"); }
         }
+        private string _alert;
+
+        public string Alert
+        {
+            get { return _alert; }
+            set { _alert = value; RaisePropertyChanged("Alert"); }
+        }
+        
 
         public ICommand InsertCustomerCommand
         {
@@ -102,10 +110,11 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                     int result = JsonConvert.DeserializeObject<int>(jsonres);
                     if (result > 0)
                     {
-                        Console.WriteLine("opgeslagen");
+                        Alert = "Uw kaart is succesvol geregistreerd. Neem de kaart van de kaartlezer om in te loggen.";
                     }
                     else
                     {
+                        Alert = "Er is een fout opgetreden bij het registreren. Neem contact op met de verantwoordelijke.";
                     }
                 }
             }
@@ -177,10 +186,12 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 if (!reader.isCardPresent())
                 {
                     BEID_ReaderSet.releaseSDK();
-                    ApplicationVM.CurrentCustomer = -1;
+                    ApplicationVM.CurrentCustomer = new Customer();
                     App.Current.Dispatcher.Invoke(() =>
                     {
                         ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+                        Customer.DoValidation = false;
+                        ApplicationVM.Card = "";
                         appvm.ChangePage(new AanmeldenVM());
                     });
                 }
@@ -195,10 +206,12 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 });
                     Console.WriteLine(beex.Message);
                     BEID_ReaderSet.releaseSDK();
-                    ApplicationVM.CurrentCustomer = -1;
+                    ApplicationVM.CurrentCustomer = new Customer();
                     App.Current.Dispatcher.Invoke(() =>
                     {
                         ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+                        Customer.DoValidation = false;
+                        ApplicationVM.Card = "";
                         appvm.ChangePage(new AanmeldenVM());
                     });
 
@@ -214,10 +227,12 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                     });
                     Console.WriteLine(ex.Message);
                     BEID_ReaderSet.releaseSDK();
-                    ApplicationVM.CurrentCustomer = -1;
+                    ApplicationVM.CurrentCustomer = new Customer();
                     App.Current.Dispatcher.Invoke(() =>
                     {
                         ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+                        Customer.DoValidation = false;
+                        ApplicationVM.Card = "";
                         appvm.ChangePage(new AanmeldenVM());
                     });
                     

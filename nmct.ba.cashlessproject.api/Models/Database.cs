@@ -213,7 +213,6 @@ namespace nmmct.ba.cashlessproject
             DbParameter par = DbProviderFactories.GetFactory(settings.ProviderName).CreateParameter();
             par.ParameterName = name;
             par.Value = value;
-
             return par;
         }
 

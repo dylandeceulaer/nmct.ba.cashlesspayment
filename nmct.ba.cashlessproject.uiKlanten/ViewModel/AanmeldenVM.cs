@@ -50,7 +50,7 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                     if (nieuw.Id == 0)
                     {
                         BEID_ReaderSet.releaseSDK();
-                        ApplicationVM.CurrentCustomer = -1;
+                        ApplicationVM.CurrentCustomer = new Customer();
                         ApplicationVM.Card = code;
                         App.Current.Dispatcher.Invoke(() =>
                         {
@@ -61,11 +61,11 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                     else
                     {
                         BEID_ReaderSet.releaseSDK();
-                        ApplicationVM.CurrentCustomer = nieuw.Id;
+                        ApplicationVM.CurrentCustomer = nieuw;
                         App.Current.Dispatcher.Invoke(() =>
                         {
                             ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
-                            //appvm.ChangePage(new KassaVM() { CurrentEmployee = nieuw });
+                            appvm.ChangePage(new KlantBeheerVM());
                         });
                     }
                 }
@@ -121,6 +121,16 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 reader = await taskReader;
                 AttachEvents();
             }
+            catch (BEID_ExNoReader ex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = ex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = ex.StackTrace
+                });
+                Console.WriteLine("Kaardlezer: " + ex.Message);
+            }
             catch (Exception ex)
             {
                 Log(new Errorlog()
@@ -152,7 +162,6 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 try
                 {
                     LoginText = "Uw kaart word gelezen, even geduld.";
-                    //BEID_SISCard sis = reader.getSISCard();
                     BEID_EIDCard card = reader.getEIDCard();
                     BEID_EId doc = card.getID();
 

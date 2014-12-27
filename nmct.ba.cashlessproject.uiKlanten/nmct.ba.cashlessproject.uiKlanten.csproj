@@ -91,12 +91,20 @@
     <Compile Include="ViewModel\AanmeldenVM.cs" />
     <Compile Include="ViewModel\ApplicationVM.cs" />
     <Compile Include="ViewModel\Ipage.cs" />
+    <Compile Include="ViewModel\KlantBeheerVM.cs" />
     <Compile Include="ViewModel\ObservableObject.cs" />
     <Compile Include="ViewModel\RegistreerVM.cs" />
+    <Compile Include="View\KlantBeheer.xaml.cs">
+      <DependentUpon>KlantBeheer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Registreer.xaml.cs">
       <DependentUpon>Registreer.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Aanmelden.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KlantBeheer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

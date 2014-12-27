@@ -43,3 +43,5 @@ C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKlanten\bin\Debug\nmct.ba.cashlessproject.model.pdb
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKlanten\bin\Debug\Thinktecture.IdentityModel.Client.pdb
 C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKlanten\obj\Debug\App.baml
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKlanten\obj\Debug\View\KlantBeheer.baml
+C:\Users\Dylan\Documents\GitHub\nmct.ba.cashlesspayment\nmct.ba.cashlessproject.uiKlanten\obj\Debug\View\KlantBeheer.g.cs

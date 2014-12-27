@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using be.belgium.eid;
 using Thinktecture.IdentityModel.Client;
+using nmct.ba.cashlessproject.model;
 
 namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
 {
@@ -15,7 +16,7 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
     public class ApplicationVM : ObservableObject
     {
         public static TokenResponse token = null;
-        public static int CurrentCustomer = -1;
+        public static Customer CurrentCustomer;
         public static string Card;
         public ApplicationVM()
         {
