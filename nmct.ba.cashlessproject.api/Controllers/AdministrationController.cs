@@ -16,6 +16,11 @@ namespace nmct.ba.cashlessproject.api.Controllers
         {
             return View();
         }
+        public ActionResult ShowRegisters()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Register(Organisation organisation)
         {

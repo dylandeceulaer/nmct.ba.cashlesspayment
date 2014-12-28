@@ -6,6 +6,12 @@
              xmlns:vm="clr-namespace:nmct.ba.cashlessproject.uiKlanten.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
+    </UserControl.Resources>
     <UserControl.DataContext>
         <vm:KlantBeheerVM/>
     </UserControl.DataContext>
@@ -26,6 +32,8 @@
                 </DockPanel>
             </DockPanel>
             <TextBlock Margin="0,20" FontSize="22" Width="800" HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Alert}" />
+            <StackPanel Orientation="Horizontal" Width="800">
+            <StackPanel HorizontalAlignment="Center" Margin="300,0,2,0">
             <ListBox Width="200" Height="230" ItemsSource="{Binding Geld}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -40,6 +48,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            
             <Border BorderBrush="DarkGray" BorderThickness="1" Width="200">
                 <DockPanel Width="198" Background="White">
                     <Border BorderBrush="LightGray" BorderThickness="0,0,1,0">
@@ -48,6 +57,14 @@
                     <TextBlock Text="{Binding Totaal, StringFormat={}€{0}}" Style="{StaticResource stkItem}" Padding="0,4"/>
                 </DockPanel>
             </Border>
+            </StackPanel>
+            <StackPanel Width="150" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="147,0,0,0">
+                <Button Content="€5" Command="{Binding AddNotesCommand}" CommandParameter="5"/>
+                <Button Content="€10" Command="{Binding AddNotesCommand}" CommandParameter="10"/>
+                <Button Content="€20" Command="{Binding AddNotesCommand}" CommandParameter="20"/>
+                <Button Content="€50" Command="{Binding AddNotesCommand}" CommandParameter="50"/>
+            </StackPanel>
+            </StackPanel>
             <Button Command="{Binding AddMoneyCommand}" Background="DodgerBlue" Width="200" Height="40" Margin="20" VerticalContentAlignment="Center" Content="Accepteer" Foreground="White" FontSize="22" FontWeight="Bold" BorderThickness="0"/>
         </StackPanel>
         

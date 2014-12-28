@@ -158,7 +158,7 @@
             <Button Content="B" Command="{Binding KeyboardCommand}" CommandParameter="b"/>
             <Button Content="N" Command="{Binding KeyboardCommand}" CommandParameter="n"/>
             <Button Width="196" Command="{Binding KeyboardCommand}" CommandParameter=" "/>
-            <Button Content="RETURN" Width="100" Command="{Binding KeyboardCommand}" CommandParameter="return"/>
+            <Button Content="BACKSPACE" Width="100" Command="{Binding KeyboardCommand}" CommandParameter="return"/>
 
         </WrapPanel>
     </Grid>

@@ -112,7 +112,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 {
                     string json = await res.Content.ReadAsStringAsync();
                     Producten = JsonConvert.DeserializeObject<ObservableCollection<Product>>(json);
-                    Selected = Producten[0];
+                    if(Producten.Count != 0)Selected = Producten[0];
                 }
             }
         }
@@ -219,7 +219,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         private bool KanNieuw()
         {
             if (Producten == null) return true;
-            if (Producten[Producten.Count - 1].Id != -1) return true;
+            if (Producten[Producten.Count - 1] != null && Producten[Producten.Count - 1].Id != -1) return true;
             return false;
         }
         

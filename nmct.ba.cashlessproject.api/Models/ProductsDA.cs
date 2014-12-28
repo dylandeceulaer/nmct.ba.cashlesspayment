@@ -63,8 +63,6 @@ namespace nmct.ba.cashlessproject.api.Models
             if (prod.Image == null) par4 = Database.AddParameter(CONNSTR, "pic", new byte[0]);
             else par4 = Database.AddParameter(CONNSTR, "pic", prod.Image);
             
-
-
             return Database.InsertData(Database.GetConnection(ConnectionString.Create(claims)), sql, par1, par2, par3, par4);
         }
         public static int DeleteProduct(int id, IEnumerable<Claim> claims)

@@ -115,7 +115,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 {
                     string json = await res.Content.ReadAsStringAsync();
                     Kassas = JsonConvert.DeserializeObject<ObservableCollection<Register>>(json);
-                    Selected = Kassas[0];
+                    if(Kassas.Count!=0) Selected = Kassas[0];
                 }
             }
         }

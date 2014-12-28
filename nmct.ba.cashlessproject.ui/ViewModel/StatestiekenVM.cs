@@ -120,10 +120,13 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                     Statestieken = JsonConvert.DeserializeObject<List<Sales>>(json);
                 }
             }
-            var datemin = (from e in Statestieken select e.TimeStamp).Min();
-            DatumVan = (DateTime)datemin;
-            var datemax = (from e in Statestieken select e.TimeStamp).Max();
-            DatumTot = (DateTime)datemax;
+            if (Statestieken.Count != 0)
+            {
+                var datemin = (from e in Statestieken select e.TimeStamp).Min();
+                DatumVan = (DateTime)datemin;
+                var datemax = (from e in Statestieken select e.TimeStamp).Max();
+                DatumTot = (DateTime)datemax;
+            }
         }
         private async void GetProducten()
         {

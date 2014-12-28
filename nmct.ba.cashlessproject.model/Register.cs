@@ -29,6 +29,22 @@ namespace nmct.ba.cashlessproject.model
             get { return _device; }
             set { _device = value; }
         }
+        private DateTime _purchaseDate;
+
+        public DateTime PurchaseDate
+        {
+            get { return _purchaseDate; }
+            set { _purchaseDate = value; }
+        }
+        private DateTime _expiresDate;
+
+        public DateTime ExpiresDate
+        {
+            get { return _expiresDate; }
+            set { _expiresDate = value; }
+        }
+        
+        
 
     }
 }

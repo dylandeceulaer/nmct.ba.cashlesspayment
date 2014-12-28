@@ -27,11 +27,8 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
             GetCardReader();
             Klant = ApplicationVM.CurrentCustomer;
             Alert = "Voeg Biljetten toe om uw kaart op te waarderen.";
+
             Geld = new ObservableCollection<Money>();
-            Geld.Add(new Money() {count = 2,value=5 });
-            Geld.Add(new Money() { count = 1, value = 10 });
-            Geld.Add(new Money() { count = 1, value = 20});
-            Geld.Add(new Money() { count = 1, value = 50 });
             GetTotaal();
         }
 
@@ -61,12 +58,17 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
         public int Totaal
         {
             get { return _totaal; }
-            set { _totaal = value; }
+            set { _totaal = value; RaisePropertyChanged("Totaal"); }
         }
 
         public ICommand AddMoneyCommand
         {
             get { return new RelayCommand(AddMoney, KanUpdaten); }
+        }
+
+        public ICommand AddNotesCommand
+        {
+            get { return new RelayCommand<int>(AddNotes); }
         }
         #region CRUD
 
@@ -112,6 +114,7 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
         }
 
         #endregion
+        
 
         private void GetTotaal()
         {
@@ -126,6 +129,29 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
         {
             if (Geld.Count == 0) return false;
             else return true;
+        }
+
+        private void AddNotes(int waarde)
+        {
+            var g = from e in Geld where e.value == waarde select e;
+            List<Money> lijstProds = g.ToList();
+
+            if (lijstProds.Count == 0)
+            {
+                Geld.Add(new Money()
+                {
+                    count = 1,
+                    value = waarde
+                });
+                //b.PropertyChanged += bestelling_PropertyChanged;
+                GetTotaal();
+            }
+            else
+            {
+                Geld.First(item => item.value == waarde).count++;
+                GetTotaal();
+            }
+
         }
 
         #region CardReader

@@ -143,27 +143,33 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
             switch (focused)
             {
                 case "CustomerName":
-                    if (val == "return") Klant.CustomerName = Klant.CustomerName.Remove(Klant.CustomerName.Length -1,1);
+                    if (val == "return") if (Klant.CustomerName != null && Klant.CustomerName.Length > 0) Klant.CustomerName = Klant.CustomerName.Remove(Klant.CustomerName.Length - 1, 1);
+                        else break;
                     else Klant.CustomerName += val;
                     break;
                 case "FirstName":
-                    if (val == "return") Klant.FirstName = Klant.FirstName.Remove(Klant.FirstName.Length - 1, 1);
+                    if (val == "return") if (Klant.FirstName != null && Klant.FirstName.Length > 0) Klant.FirstName = Klant.FirstName.Remove(Klant.FirstName.Length - 1, 1);
+                        else break;
                     else Klant.FirstName += val;
                     break;
                 case "Street":
-                    if (val == "return") Klant.Street = Klant.Street.Remove(Klant.Street.Length - 1, 1);
+                    if (val == "return") if (Klant.Street != null && Klant.Street.Length > 0) Klant.Street = Klant.Street.Remove(Klant.Street.Length - 1, 1);
+                        else break;
                     else Klant.Street += val;
                     break;
                 case "PostalCode":
-                    if (val == "return") Klant.PostalCode = Klant.PostalCode.Remove(Klant.PostalCode.Length - 1, 1);
+                    if (val == "return") if (Klant.PostalCode != null && Klant.PostalCode.Length > 0) Klant.PostalCode = Klant.PostalCode.Remove(Klant.PostalCode.Length - 1, 1);
+                        else break;
                     else Klant.PostalCode += val;
                     break;
                 case "Number":
-                    if (val == "return") Klant.Number = Klant.Number.Remove(Klant.Number.Length - 1, 1);
+                    if (val == "return") if (Klant.Number != null && Klant.Number.Length > 0) Klant.Number = Klant.Number.Remove(Klant.Number.Length - 1, 1);
+                        else break;
                     else Klant.Number += val;
                     break;
                 case "City":
-                    if (val == "return") Klant.City = Klant.City.Remove(Klant.City.Length - 1, 1);
+                    if (val == "return") if (Klant.City != null && Klant.City.Length > 0) Klant.City = Klant.City.Remove(Klant.City.Length - 1, 1);
+                        else break;
                     else Klant.City += val;
                     break;
                 default:

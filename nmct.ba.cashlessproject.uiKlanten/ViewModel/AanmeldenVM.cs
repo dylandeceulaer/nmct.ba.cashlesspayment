@@ -60,12 +60,17 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                     }
                     else
                     {
+                        bool IsDone = false;
                         BEID_ReaderSet.releaseSDK();
                         ApplicationVM.CurrentCustomer = nieuw;
                         App.Current.Dispatcher.Invoke(() =>
                         {
-                            ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
-                            appvm.ChangePage(new KlantBeheerVM());
+                            if (!IsDone)
+                            {
+                                ApplicationVM appvm = App.Current.MainWindow.DataContext as ApplicationVM;
+                                appvm.ChangePage(new KlantBeheerVM());
+                                IsDone = true;
+                            }
                         });
                     }
                 }

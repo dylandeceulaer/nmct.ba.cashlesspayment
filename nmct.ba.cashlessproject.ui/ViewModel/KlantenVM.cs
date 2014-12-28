@@ -107,7 +107,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
                 {
                     string json = await res.Content.ReadAsStringAsync();
                     Klanten = JsonConvert.DeserializeObject<ObservableCollection<Customer>>(json);
-                    Selected = Klanten[0];
+                    if(Klanten.Count != 0)Selected = Klanten[0];
                 }
             }
         }

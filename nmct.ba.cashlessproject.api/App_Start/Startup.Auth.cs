@@ -45,12 +45,14 @@ namespace nmct.ba.cashlessproject.api
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString("/Token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromHours(8),
                 Provider = new SimpleAuthorizationServerProvider()
             });
 
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
+            
 
             // Enable the application to use bearer tokens to authenticate users
             //app.UseOAuthBearerTokens(OAuthOptions);

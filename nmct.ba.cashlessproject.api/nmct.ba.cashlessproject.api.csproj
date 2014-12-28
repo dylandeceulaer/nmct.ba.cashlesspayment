@@ -229,6 +229,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\AdminOrganisationsController.cs" />
+    <Compile Include="Controllers\AdminRegisterController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -270,6 +272,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\create.txt" />
+    <Content Include="App_Data\fill.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -332,11 +336,16 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Administration\Register.cshtml" />
+    <Content Include="Views\AdminRegister\Index.cshtml" />
+    <Content Include="Views\AdminRegister\Create.cshtml" />
+    <Content Include="Views\AdminRegister\Details.cshtml" />
+    <Content Include="Views\AdminRegister\Edit.cshtml" />
+    <Content Include="Views\AdminOrganisations\Index.cshtml" />
+    <Content Include="Views\AdminOrganisations\Details.cshtml" />
+    <Content Include="Views\AdminOrganisations\Edit.cshtml" />
+    <Content Include="Views\AdminOrganisations\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
