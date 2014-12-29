@@ -28,6 +28,7 @@ namespace nmmct.ba.cashlessproject
 
         public static DbConnection GetConnection(ConnectionStringSettings Settings)
         {
+            
             DbConnection con = DbProviderFactories.GetFactory(Settings.ProviderName).CreateConnection();
             con.ConnectionString = Settings.ConnectionString;
             con.Open();

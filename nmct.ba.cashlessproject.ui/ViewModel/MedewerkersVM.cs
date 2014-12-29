@@ -180,7 +180,8 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         #region etc
         private bool KanNieuw()
         {
-            if (Medewerkers != null && Medewerkers[Medewerkers.Count - 1].Id != -1) return true;
+            if (Medewerkers == null || Medewerkers.Count == 0) return true;
+            if (Medewerkers[Medewerkers.Count - 1].Id != -1) return true;
             return false;
         }
         private void Nieuw()

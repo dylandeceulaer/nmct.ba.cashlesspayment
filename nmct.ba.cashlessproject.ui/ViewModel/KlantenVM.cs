@@ -204,7 +204,7 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
 
         private bool KanNieuw()
         {
-            if (Klanten == null) return true;
+            if (Klanten == null || Klanten.Count == 0) return true;
             if (Klanten[Klanten.Count - 1].Id != -1) return true;
             return false;
         }

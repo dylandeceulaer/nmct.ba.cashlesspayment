@@ -16,6 +16,8 @@ namespace nmct.ba.cashlessproject.api.Models
 
         public static List<Product> GetProducts(IEnumerable<Claim> claims)
         {
+            
+
             List<Product> res = new List<Product>();
             string sql = "SELECT ID, ProductName, Price,CategoryID, Image FROM Products WHERE Active=1";
             DbDataReader data = Database.GetData(Database.GetConnection(ConnectionString.Create(claims)), sql);

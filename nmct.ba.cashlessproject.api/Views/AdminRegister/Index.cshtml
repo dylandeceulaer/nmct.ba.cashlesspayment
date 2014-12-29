@@ -4,7 +4,7 @@
     ViewBag.Title = "Kassas";
 }
 
-<h2>Index</h2>
+<h2>Kassas</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -23,9 +23,14 @@
         <th>
             @Html.DisplayNameFor(model => model.ExpiresDate)
         </th>
+        <th>
+            @Html.DisplayName("Organisatie")
+        </th>
         <th></th>
     </tr>
-
+    @{
+      var counter = 0;
+    }
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -41,11 +46,21 @@
             @Html.DisplayFor(modelItem => item.ExpiresDate)
         </td>
         <td>
+            
+            @if(ViewBag.OrganisationNames[counter] == null){ @("-")}else{ @ViewBag.OrganisationNames[counter]}
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
+            @if (ViewBag.OrganisationNames[counter] == null)
+            { @Html.ActionLink("Toewijzen", "AddToOrganisation", new { id = item.Id })}
+            else
+            { @Html.ActionLink("Verwijder toewijzing", "RemoveOrganisation", new { id = item.Id })}
+            @*@Html.ActionLink("Toewijzen", "RemoveOrganisation", new { id = item.Id })*@
         </td>
     </tr>
+    counter++;
 }
 
 </table>

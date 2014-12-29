@@ -256,10 +256,12 @@
     <Compile Include="Models\ErrorlogDA.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OrganisationsDA.cs" />
+    <Compile Include="Models\Organistion_RegisterDA.cs" />
     <Compile Include="Models\ProductsDA.cs" />
     <Compile Include="Models\RegisterEmployeeDA.cs" />
     <Compile Include="Models\RegistersDA.cs" />
     <Compile Include="Models\SalesDA.cs" />
+    <Compile Include="PresentationModels\OrganisationRegisterPM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -344,6 +346,7 @@
     <Content Include="Views\AdminOrganisations\Details.cshtml" />
     <Content Include="Views\AdminOrganisations\Edit.cshtml" />
     <Content Include="Views\AdminOrganisations\Create.cshtml" />
+    <Content Include="Views\AdminRegister\AddToOrganisation.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

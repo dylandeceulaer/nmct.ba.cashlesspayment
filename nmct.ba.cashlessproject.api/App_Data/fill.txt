@@ -164,6 +164,14 @@ CREATE TABLE [dbo].[Sales](
 
 GO
 
+SET IDENTITY_INSERT [dbo].[Categories] OFF
+INSERT [dbo].[Categories] ([Name]) VALUES (N'Frisdrank')
+INSERT [dbo].[Categories] ([Name]) VALUES (N'Warme dranken')
+INSERT [dbo].[Categories] ([Name]) VALUES (N'Alcohol')
+INSERT [dbo].[Categories] ([Name]) VALUES (N'Snacks')
+INSERT [dbo].[Categories] ([Name]) VALUES (N'Andere')
+SET IDENTITY_INSERT [dbo].[Categories] OFF
+
 ALTER TABLE [dbo].[Errorlog]  WITH CHECK ADD  CONSTRAINT [FK_Errorlog_Registers] FOREIGN KEY([RegisterID])
 REFERENCES [dbo].[Registers] ([ID])
 GO

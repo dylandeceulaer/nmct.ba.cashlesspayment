@@ -16,36 +16,41 @@ namespace nmct.ba.cashlessproject.api.Controllers
             List<Organisation> Organisations = OrganisationsDA.GetOrganisations();
             return View(Organisations);
         }
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-
-            return View(OrganisationsDA.GetOrganisationById(id));
+            if (id.HasValue) return View(OrganisationsDA.GetOrganisationById((int)id));
+            return RedirectToAction("Index", "AdminOrganisations");
         }
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View(OrganisationsDA.GetOrganisationById(id));
+            if (id.HasValue) return View(OrganisationsDA.GetOrganisationById((int)id));
+            return RedirectToAction("Index", "AdminOrganisations");
         }
         [HttpPost]
         public ActionResult Edit(Organisation Organisation)
         {
-            Organisation EncryptedOrganisation = new Organisation()
+            if (ModelState.IsValid)
             {
-                Login = Cryptography.Encrypt(Organisation.Login),
-                Password = Cryptography.Encrypt(Organisation.Password),
-                DbName = Cryptography.Encrypt(Organisation.DbName),
-                DbLogin = Cryptography.Encrypt(Organisation.DbLogin),
-                DbPassword = Cryptography.Encrypt(Organisation.DbPassword),
-                OrganisationName = Organisation.OrganisationName,
-                Address = Organisation.Address,
-                Email = Organisation.Email,
-                Phone = Organisation.Phone
-            };
-            OrganisationsDA.UpdateOrganisation(EncryptedOrganisation);
-            return RedirectToAction("Index", "AdminOrganisations");
+                Organisation EncryptedOrganisation = new Organisation()
+                {
+                    Login = Cryptography.Encrypt(Organisation.Login),
+                    Password = Cryptography.Encrypt(Organisation.Password),
+                    DbName = Cryptography.Encrypt(Organisation.DbName),
+                    DbLogin = Cryptography.Encrypt(Organisation.DbLogin),
+                    DbPassword = Cryptography.Encrypt(Organisation.DbPassword),
+                    OrganisationName = Organisation.OrganisationName,
+                    Address = Organisation.Address,
+                    Email = Organisation.Email,
+                    Phone = Organisation.Phone
+                };
+                OrganisationsDA.UpdateOrganisation(EncryptedOrganisation);
+                return RedirectToAction("Index", "AdminOrganisations");
+            }
+            return View(Organisation);
         }
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            OrganisationsDA.DeleteOrganisation(id);
+            if (id.HasValue) OrganisationsDA.DeleteOrganisation((int)id);
             return RedirectToAction("Index", "AdminOrganisations");
         }
         public ActionResult Create()
@@ -55,21 +60,27 @@ namespace nmct.ba.cashlessproject.api.Controllers
         [HttpPost]
         public ActionResult Create(Organisation Organisation)
         {
-            Organisation EncryptedOrganisation = new Organisation()
+            if (ModelState.IsValid)
             {
-                Login = Cryptography.Encrypt(Organisation.Login),
-                Password = Cryptography.Encrypt(Organisation.Password),
-                DbName = Cryptography.Encrypt(Organisation.DbName),
-                DbLogin = Cryptography.Encrypt(Organisation.DbLogin),
-                DbPassword = Cryptography.Encrypt(Organisation.DbPassword),
-                OrganisationName = Organisation.OrganisationName,
-                Address = Organisation.Address,
-                Email = Organisation.Email,
-                Phone = Organisation.Phone
-            };
-            OrganisationsDA.InsertOrganisation(EncryptedOrganisation);
-            OrganisationsDA.CreateDatabase(Organisation);
-            return RedirectToAction("Index", "AdminOrganisations");
+
+                Organisation EncryptedOrganisation = new Organisation()
+                {
+                    Login = Cryptography.Encrypt(Organisation.Login),
+                    Password = Cryptography.Encrypt(Organisation.Password),
+                    DbName = Cryptography.Encrypt(Organisation.DbName),
+                    DbLogin = Cryptography.Encrypt(Organisation.DbLogin),
+                    DbPassword = Cryptography.Encrypt(Organisation.DbPassword),
+                    OrganisationName = Organisation.OrganisationName,
+                    Address = Organisation.Address,
+                    Email = Organisation.Email,
+                    Phone = Organisation.Phone
+                };
+                OrganisationsDA.InsertOrganisation(EncryptedOrganisation);
+                OrganisationsDA.CreateDatabase(Organisation);
+                return RedirectToAction("Index", "AdminOrganisations");
+            }
+            return View(Organisation);
+            
         }
     }
 }

@@ -218,8 +218,8 @@ namespace nmct.ba.cashlessproject.ui.ViewModel
         #region etc
         private bool KanNieuw()
         {
-            if (Producten == null) return true;
-            if (Producten[Producten.Count - 1] != null && Producten[Producten.Count - 1].Id != -1) return true;
+            if (Producten == null || Producten.Count == 0) return true;
+            if (Producten[Producten.Count - 1].Id != -1) return true;
             return false;
         }
         
