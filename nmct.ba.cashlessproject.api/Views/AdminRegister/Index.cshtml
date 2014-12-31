@@ -4,10 +4,10 @@
     ViewBag.Title = "Kassas";
 }
 
-<h2>Kassas</h2>
+<h2>@ViewBag.OrganisationName</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Voeg nieuwe kassa toe", "Create")
 </p>
 <table class="table">
     <tr>
@@ -47,13 +47,18 @@
         </td>
         <td>
             
-            @if(ViewBag.OrganisationNames[counter] == null){ @("-")}else{ @ViewBag.OrganisationNames[counter]}
+            @if(ViewBag.OrganisationNames[counter].OrganisationName == null){ @("-")}else{ @Html.ActionLink((string)ViewBag.OrganisationNames[counter].OrganisationName, "Index", new { id = ViewBag.OrganisationNames[counter].ID })}
+            @*@if(ViewBag.OrganisationNames[counter].OrganisationName == null){ @("-")}else{ @ViewBag.OrganisationNames[counter].OrganisationName}*@
+            @*@if (ViewBag.OrganisationNames[counter].OrganisationName == null)
+            { @("-")}
+            else
+            { @ViewBag.OrganisationNames[counter].OrganisationName}*@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
-            @if (ViewBag.OrganisationNames[counter] == null)
+            @if (ViewBag.OrganisationNames[counter].OrganisationName == null)
             { @Html.ActionLink("Toewijzen", "AddToOrganisation", new { id = item.Id })}
             else
             { @Html.ActionLink("Verwijder toewijzing", "RemoveOrganisation", new { id = item.Id })}
@@ -64,3 +69,13 @@
 }
 
 </table>
+@{
+    if (ViewBag.IsDetail)
+    {
+        @Html.ActionLink("Keer terug naar het overzicht", "Index", new { id = "" }, null);
+    }
+    else
+    {
+        @Html.ActionLink("Toon enkel niet toegewezen kassas", "Index", new { id = -1 });
+    }
+}

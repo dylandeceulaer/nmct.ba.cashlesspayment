@@ -7,17 +7,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
 {
+    
     class RegistreerVM : ObservableObject, Ipage
     {
         private BEID_ReaderContext reader;
         private uint stop;
         private string focused;
+        private bool IsDone = false;
         public string Name
         {
             get { return "Registreer"; }
@@ -110,21 +113,28 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
         {
             using (HttpClient client = new HttpClient())
             {
-                Klant.Card = ApplicationVM.Card;
-                string json = JsonConvert.SerializeObject(Klant);
-                client.SetBearerToken(ApplicationVM.token.AccessToken);
-                HttpResponseMessage res = await client.PostAsync("http://localhost:5054/api/customer", new StringContent(json, Encoding.UTF8, "application/json"));
-                if (res.IsSuccessStatusCode)
+                if (!IsDone)
                 {
-                    string jsonres = await res.Content.ReadAsStringAsync();
-                    int result = JsonConvert.DeserializeObject<int>(jsonres);
-                    if (result > 0)
+                    IsDone = true;
+                    Klant.Card = ApplicationVM.Card;
+                    string json = JsonConvert.SerializeObject(Klant);
+                    client.SetBearerToken(ApplicationVM.token.AccessToken);
+                    HttpResponseMessage res = await client.PostAsync("http://localhost:5054/api/customer", new StringContent(json, Encoding.UTF8, "application/json"));
+                    if (res.IsSuccessStatusCode)
                     {
-                        Alert = "Uw kaart is succesvol geregistreerd. Neem de kaart van de kaartlezer om in te loggen.";
-                    }
-                    else
-                    {
-                        Alert = "Er is een fout opgetreden bij het registreren. Neem contact op met de verantwoordelijke.";
+
+                        string jsonres = await res.Content.ReadAsStringAsync();
+                        int result = JsonConvert.DeserializeObject<int>(jsonres);
+                        if (result > 0)
+                        {
+                            
+                            Alert = "Uw kaart is succesvol geregistreerd. Neem de kaart van de kaartlezer om in te loggen.";
+                        }
+                        else
+                        {
+                            IsDone = false;
+                            Alert = "Er is een fout opgetreden bij het registreren. Neem contact op met de verantwoordelijke.";
+                        }
                     }
                 }
             }
@@ -195,6 +205,16 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 stop = reader.SetEventCallback(MyCallback, System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(readerName));
 
             }
+            catch (BEID_Exception beex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = beex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = beex.StackTrace
+                });
+                Console.WriteLine(beex.Message);
+            }
             catch (Exception ex)
             {
                 Log(new Errorlog()
@@ -214,6 +234,16 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 var taskReader = Task.Factory.StartNew(() => readerSet.getReader());
                 reader = await taskReader;
                 AttachEvents();
+            }
+            catch (BEID_Exception beex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = beex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = beex.StackTrace
+                });
+                Console.WriteLine(beex.Message);
             }
             catch (Exception ex)
             {

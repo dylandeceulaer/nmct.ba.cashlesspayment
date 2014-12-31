@@ -87,6 +87,15 @@ namespace nmct.ba.cashlessproject.model
             set { _phone = value; }
         }
 
+        private string _card;
+
+        public string Card
+        {
+            get { return _card; }
+            set { _card = value; }
+        }
+        
+
         public string Error
         {
             get { return null; }

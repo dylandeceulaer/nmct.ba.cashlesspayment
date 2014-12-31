@@ -12,5 +12,6 @@ namespace nmct.ba.cashlessproject.model
         public int Timestamp { get; set; }
         public string Message { get; set; }
         public string Stacktrace { get; set; }
+        public int OrganisationID { get; set; }
     }
 }

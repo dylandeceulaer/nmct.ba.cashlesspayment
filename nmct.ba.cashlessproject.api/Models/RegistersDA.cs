@@ -123,6 +123,23 @@ namespace nmct.ba.cashlessproject.api.Models
                 return 0;
             }
         }
+        public static int UpdateRegister(IEnumerable<Claim> claims, Register reg)
+        {
+            try
+            {
+                string sql = "UPDATE Registers SET RegisterName=@RegisterName, Device=@Device WHERE ID = @id";
+                DbParameter par1 = Database.AddParameter(CONNSTR, "RegisterName", reg.RegisterName);
+                DbParameter par2 = Database.AddParameter(CONNSTR, "Device", reg.Device);
+                DbParameter par3 = Database.AddParameter(CONNSTR, "id", reg.Id);
+
+                return Database.ModifyData(Database.GetConnection(ConnectionString.Create(claims)), sql, par1, par2, par3);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
+        }
         public static int DeleteRegister(int id)
         {
             string sql = "UPDATE Registers SET Active=0 WHERE ID=@id";

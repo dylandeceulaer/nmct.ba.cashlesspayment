@@ -33,6 +33,7 @@ namespace nmct.ba.cashlessproject.api.Controllers
             {
                 Organisation EncryptedOrganisation = new Organisation()
                 {
+                    ID = Organisation.ID,
                     Login = Cryptography.Encrypt(Organisation.Login),
                     Password = Cryptography.Encrypt(Organisation.Password),
                     DbName = Cryptography.Encrypt(Organisation.DbName),

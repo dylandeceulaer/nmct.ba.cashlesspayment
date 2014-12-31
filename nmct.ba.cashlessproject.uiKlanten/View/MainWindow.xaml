@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:nmct.ba.cashlessproject.uiKlanten.ViewModel"
         xmlns:v="clr-namespace:nmct.ba.cashlessproject.uiKlanten.View"
+        ResizeMode="NoResize"
         Title="{Binding CurrentPage.Name}" Height="530" Width="830">
     <Window.DataContext>
         <vm:ApplicationVM/>

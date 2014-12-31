@@ -8,12 +8,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
 {
+    
     class KlantBeheerVM : ObservableObject, Ipage
     {
         private BEID_ReaderContext reader;
@@ -168,6 +170,16 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 stop = reader.SetEventCallback(MyCallback, System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(readerName));
                 
             }
+            catch (BEID_Exception beex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = beex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = beex.StackTrace
+                });
+                Console.WriteLine(beex.Message);
+            }
             catch (Exception ex)
             {
                 Log(new Errorlog()
@@ -179,6 +191,7 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 Console.WriteLine(ex.Message);
             }
         }
+        [HandleProcessCorruptedStateExceptions] 
         private async void GetCardReader()
         {
             try
@@ -188,6 +201,17 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 reader = await taskReader;
                 AttachEvents();
             }
+            catch (BEID_Exception ex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = ex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = ex.StackTrace
+                });
+                Console.WriteLine("Kaardlezer: " + ex.Message);
+            }
+
             catch (Exception ex)
             {
                 Log(new Errorlog()

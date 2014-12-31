@@ -8,11 +8,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
 {
+    
     class AanmeldenVM: ObservableObject, Ipage
     {
         private BEID_ReaderContext reader;
@@ -106,6 +108,17 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 stop = reader.SetEventCallback(MyCallback, System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(readerName));
 
             }
+            catch (BEID_Exception beex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = beex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = beex.StackTrace
+                });
+                LoginText = "Plaats uw kaart op de cardreader om in the loggen.";
+                Console.WriteLine(beex.Message);
+            }
             catch (Exception ex)
             {
                 Log(new Errorlog()
@@ -126,7 +139,7 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
                 reader = await taskReader;
                 AttachEvents();
             }
-            catch (BEID_ExNoReader ex)
+            catch (BEID_Exception ex)
             {
                 Log(new Errorlog()
                 {
@@ -162,43 +175,54 @@ namespace nmct.ba.cashlessproject.uiKlanten.ViewModel
 
         private void GetInfo()
         {
-            if (reader.isCardPresent())
+            try
             {
-                try
+                if (reader.isCardPresent())
                 {
+                
                     LoginText = "Uw kaart word gelezen, even geduld.";
                     BEID_EIDCard card = reader.getEIDCard();
                     BEID_EId doc = card.getID();
 
                     GetCustomer(doc.getNationalNumber());
-
                 }
-                catch (BEID_Exception beex)
+                else
                 {
-                    Log(new Errorlog()
-                    {
-                        Message = beex.Message,
-                        RegisterID = int.Parse(Properties.Settings.Default.ID),
-                        Stacktrace = beex.StackTrace
-                    });
                     LoginText = "Leg uw kaart op de cardreader om in the loggen. Of plaats een nieuwe kaart om te registreren";
-                    Console.WriteLine(beex.Message);
-                }
-                catch (Exception ex)
-                {
-                    Log(new Errorlog()
-                    {
-                        Message = ex.Message,
-                        RegisterID = int.Parse(Properties.Settings.Default.ID),
-                        Stacktrace = ex.StackTrace
-                    });
-                    LoginText = "Foutieve kaart.";
-                    Console.WriteLine(ex.Message);
                 }
             }
-            else
+            catch (BEID_ExNoCardPresent ex)
             {
+                Log(new Errorlog()
+                {
+                    Message = ex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = ex.StackTrace
+                });
+                LoginText = "Foutieve kaart.";
+                Console.WriteLine(ex.Message);
+            }
+            catch (BEID_Exception beex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = beex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = beex.StackTrace
+                });
                 LoginText = "Leg uw kaart op de cardreader om in the loggen. Of plaats een nieuwe kaart om te registreren";
+                Console.WriteLine(beex.Message);
+            }
+            catch (Exception ex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = ex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = ex.StackTrace
+                });
+                LoginText = "Foutieve kaart.";
+                Console.WriteLine(ex.Message);
             }
         }
         #endregion

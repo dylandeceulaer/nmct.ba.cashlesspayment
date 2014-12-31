@@ -82,8 +82,8 @@ GO
 CREATE TABLE [dbo].[Errorlog](
 	[RegisterID] [int] NOT NULL,
 	[Timestamp] [int] NOT NULL,
-	[Message] [nvarchar](50) NOT NULL,
-	[Stacktrace] [ntext] NOT NULL,
+	[Message] [nvarchar](MAX) NOT NULL,
+	[Stacktrace] [nvarchar](MAX) NOT NULL,
  CONSTRAINT [PK_Errorlog] PRIMARY KEY CLUSTERED 
 (
 	[RegisterID] ASC,

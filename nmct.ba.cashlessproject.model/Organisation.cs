@@ -47,12 +47,12 @@ namespace nmct.ba.cashlessproject.model
         [DisplayName("Adres")]
         public string Address { get; set; }
         [MaxLength(50, ErrorMessage = "Mag maximum 50 karakters bevatten.")]
-        [MinLength(6, ErrorMessage = "Moet minimum 6 karakters bevatten")]
+        [RegularExpression(@"^[A-Za-z0-9.]{1,40}\@+[A-Za-z0-9.]{1,20}\.+[a-zA-Z0-9]{2,15}$", ErrorMessage = "Geef een geldig email op volgens: naam@provider.domein")]
         [Required(ErrorMessage = "Email is verplicht")]
         [DisplayName("Email")]
         public string Email { get; set; }
         [MaxLength(15, ErrorMessage = "Mag maximum 15 karakters bevatten.")]
-        [MinLength(2, ErrorMessage = "Moet minimum 2 karakters bevatten")]
+        [RegularExpression(@"^[0-9/.]{1,15}$", ErrorMessage = "Telefoonnummer mag enkel cijfers en evt. leestekens bevatten.")]
         [Required(ErrorMessage = "Telefoonnumer is verplicht")]
         [DisplayName("Telefoonnummer")]
         public string Phone { get; set; }

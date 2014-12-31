@@ -68,16 +68,16 @@
                     <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Image Width="55" Height="55" HorizontalAlignment="Left" Margin="12,0,0,0" Source="{Binding Selected.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
-                <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Afbeelding" Margin="12,0,10,10"/>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                        <TextBox Width="195" Margin="12,0,0,0" VerticalAlignment="Bottom" Text="{Binding ImagePath}"/>
-                        <Button Content="..." Height="22" Width="22" Command="{Binding AddImageCommand}"/>
-                    </StackPanel>
+            <DockPanel Margin="12,0,0,0">
+                <Image Width="55" Height="55" HorizontalAlignment="Left" Margin="0,0,0,0" Source="{Binding Selected.Picture, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
+                <StackPanel Margin="12,0,10,0">
+                    <TextBlock Text="Afbeelding" Margin="0,0,10,10"/>
+                    <DockPanel VerticalAlignment="Bottom" Margin="0,0,0,0" HorizontalAlignment="Stretch" LastChildFill="True">
+                        <Button Content="..." Height="22" Width="22" Command="{Binding AddImageCommand}" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                        <TextBox Margin="0,0,0,0" VerticalAlignment="Bottom" Text="{Binding ImagePath}" HorizontalAlignment="Stretch" DockPanel.Dock="Left"/>
+                    </DockPanel>
                 </StackPanel>
-            </StackPanel>
+            </DockPanel>
             <StackPanel Orientation="Horizontal" Margin="0,12,0,6">
                 <TextBlock Text="Saldo"/>
                 <TextBox Width="218" Margin="18,0,0,0" Text="{Binding Selected.Balance, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>

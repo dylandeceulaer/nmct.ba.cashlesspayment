@@ -229,6 +229,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\AdminLogsController.cs" />
     <Compile Include="Controllers\AdminOrganisationsController.cs" />
     <Compile Include="Controllers\AdminRegisterController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Models\RegisterEmployeeDA.cs" />
     <Compile Include="Models\RegistersDA.cs" />
     <Compile Include="Models\SalesDA.cs" />
+    <Compile Include="PresentationModels\LogPM.cs" />
     <Compile Include="PresentationModels\OrganisationRegisterPM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -347,6 +349,7 @@
     <Content Include="Views\AdminOrganisations\Edit.cshtml" />
     <Content Include="Views\AdminOrganisations\Create.cshtml" />
     <Content Include="Views\AdminRegister\AddToOrganisation.cshtml" />
+    <Content Include="Views\AdminLogs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

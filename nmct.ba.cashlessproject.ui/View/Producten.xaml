@@ -44,16 +44,16 @@
         <StackPanel Grid.Column="1" Grid.Row="1">
             <TextBlock Text="Naam" Grid.Row="1" Grid.Column="1"/>
             <TextBox Text="{Binding Selected.ProductName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-            <StackPanel Orientation="Horizontal">
-                <Image Width="55" Height="55" HorizontalAlignment="Left" Margin="12,0,0,0" Source="{Binding Selected.Image, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
-                <StackPanel Margin="0,0,10,0">
-                    <TextBlock Text="Afbeelding" Margin="12,0,10,10"/>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                        <TextBox Width="197" Margin="12,0,0,0" VerticalAlignment="Bottom" Text="{Binding ImagePath}"/>
-                        <Button Content="..." Height="22" Width="22" Command="{Binding AddImageCommand}"/>
-                    </StackPanel>
+            <DockPanel Margin="12,0,0,0">
+                <Image Width="55" Height="55" HorizontalAlignment="Left" Margin="0,0,0,0" Source="{Binding Selected.Image, Converter={StaticResource StringToImageConverter}, UpdateSourceTrigger=PropertyChanged}" Stretch="UniformToFill"/>
+                <StackPanel Margin="12,0,10,0">
+                    <TextBlock Text="Afbeelding" Margin="0,0,10,10"/>
+                    <DockPanel VerticalAlignment="Bottom" Margin="0,0,0,0" HorizontalAlignment="Stretch" LastChildFill="True">
+                        <Button Content="..." Height="22" Width="22" Command="{Binding AddImageCommand}" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                        <TextBox Margin="0,0,0,0" VerticalAlignment="Bottom" Text="{Binding ImagePath}" HorizontalAlignment="Stretch" DockPanel.Dock="Left"/>
+                    </DockPanel>
                 </StackPanel>
-            </StackPanel>
+            </DockPanel>
             <TextBlock Text="prijs"/>
             <TextBox Text="{Binding Selected.Price, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
             <TextBlock Text="Categorie"/>

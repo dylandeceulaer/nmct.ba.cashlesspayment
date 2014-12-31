@@ -18,13 +18,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Cashless Payment", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Cashless Payment", "Index", "AdminOrganisations", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Verenegingen", "Index", "AdminOrganisations", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Kassas", "Index", "AdminRegister", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Logs", "Register", "Administration", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Logs", "Index", "AdminLogs", new { area = "" }, null)</li>
                 </ul>
             </div>
         </div>

@@ -19,7 +19,7 @@ namespace nmct.ba.cashlessproject.api.Models
         public static List<Employee> GetEployees(IEnumerable<Claim> claims)
         {
             List<Employee> res = new List<Employee>();
-            string sql = "SELECT ID, EmployeeName, FirstName, Street,Number,PostalCode,City, Phone, Email FROM Employee WHERE Active=1";
+            string sql = "SELECT ID, EmployeeName, FirstName, Street,Number,PostalCode,City, Phone, Email, Card FROM Employee WHERE Active=1";
             DbDataReader data = Database.GetData(Database.GetConnection(ConnectionString.Create(claims)), sql);
             while (data.Read())
             {
@@ -33,7 +33,8 @@ namespace nmct.ba.cashlessproject.api.Models
                     PostalCode=data["PostalCode"].ToString(),
                     Number=data["Number"].ToString(),
                     Phone = data["Phone"].ToString(),
-                    Email = data["Email"].ToString()
+                    Email = data["Email"].ToString(),
+                    Card = data["Card"].ToString()
                 });
             }
             return res;
@@ -63,8 +64,8 @@ namespace nmct.ba.cashlessproject.api.Models
         }
         public static int UpdateEmployee(Employee empl, IEnumerable<Claim> claims)
         {
-            
-            string sql = "UPDATE Employee SET EmployeeName=@naam, FirstName=@voornaam, Street=@straat,Number=@nummer,City=@plaats,Phone=@tel,Email=@mail,PostalCode=@postcode WHERE ID=@id";
+
+            string sql = "UPDATE Employee SET EmployeeName=@naam, FirstName=@voornaam, Street=@straat,Number=@nummer,City=@plaats,Phone=@tel,Email=@mail,PostalCode=@postcode,Card=@card WHERE ID=@id";
             DbParameter par8 = Database.AddParameter(CONNSTR, "id", empl.Id);            
             DbParameter par1 = Database.AddParameter(CONNSTR, "naam", empl.EmployeeName);
             DbParameter par2 = Database.AddParameter(CONNSTR, "voornaam", empl.FirstName);
@@ -74,13 +75,16 @@ namespace nmct.ba.cashlessproject.api.Models
             DbParameter par6 = Database.AddParameter(CONNSTR, "tel", empl.Phone);
             DbParameter par7 = Database.AddParameter(CONNSTR, "mail", empl.Email);
             DbParameter par9 = Database.AddParameter(CONNSTR, "postcode", empl.PostalCode);
+            DbParameter par10;
+            if (empl.Card == null) par10 = Database.AddParameter(CONNSTR, "card", DBNull.Value);
+            else par10 = Database.AddParameter(CONNSTR, "card", empl.Card);
 
-            return Database.ModifyData(Database.GetConnection(ConnectionString.Create(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8, par9);
+            return Database.ModifyData(Database.GetConnection(ConnectionString.Create(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8, par9,par10);
 
         }
         public static int InsertEmployee(Employee empl, IEnumerable<Claim> claims)
         {
-            string sql = "INSERT INTO Employee(EmployeeName, FirstName, Street,Number,City,Phone,Email,PostalCode) VALUES(@naam,@voornaam,@straat,@nummer,@plaats,@tel,@mail,@postcode)";
+            string sql = "INSERT INTO Employee(EmployeeName, FirstName, Street,Number,City,Phone,Email,PostalCode,Card) VALUES(@naam,@voornaam,@straat,@nummer,@plaats,@tel,@mail,@postcode,@card)";
             DbParameter par1 = Database.AddParameter(CONNSTR, "naam", empl.EmployeeName);
             DbParameter par2 = Database.AddParameter(CONNSTR, "voornaam", empl.FirstName);
             DbParameter par3 = Database.AddParameter(CONNSTR, "straat", empl.Street);
@@ -89,9 +93,11 @@ namespace nmct.ba.cashlessproject.api.Models
             DbParameter par6 = Database.AddParameter(CONNSTR, "tel", empl.Phone);
             DbParameter par7 = Database.AddParameter(CONNSTR, "mail", empl.Email);
             DbParameter par8 = Database.AddParameter(CONNSTR, "postcode", empl.PostalCode);
+            DbParameter par9;
+            if (empl.Card == null) par9 = Database.AddParameter(CONNSTR, "card", DBNull.Value);
+            else par9 = Database.AddParameter(CONNSTR, "card", empl.Card);
 
-
-            return Database.InsertData(Database.GetConnection(ConnectionString.Create(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8);
+            return Database.InsertData(Database.GetConnection(ConnectionString.Create(claims)), sql, par1, par2, par3, par4, par5, par6, par7, par8,par9);
         }
         public static int DeleteEmployee(int id, IEnumerable<Claim> claims)
         {

@@ -415,6 +415,16 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
                 reader.SetEventCallback(MyCallback, System.Runtime.InteropServices.Marshal.StringToHGlobalAnsi(readerName));
 
             }
+            catch (BEID_Exception beex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = beex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = beex.StackTrace
+                });
+                Console.WriteLine(beex.Message);
+            }
             catch (Exception ex)
             {
                 Log(new Errorlog()
@@ -434,6 +444,16 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
                 var taskReader = Task.Factory.StartNew(() => readerSet.getReader());
                 reader = await taskReader;
                 AttachEvents();
+            }
+            catch (BEID_Exception beex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = beex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = beex.StackTrace
+                });
+                Console.WriteLine(beex.Message);
             }
             catch (Exception ex)
             {
@@ -463,52 +483,53 @@ namespace nmct.ba.cashlessproject.uiKassa.ViewModel
 
         private void GetInfo()
         {
-            if (reader.isCardPresent())
+            try
             {
-                try
+                if (reader.isCardPresent())
                 {
+
                     KlantNaam = "Kaart lezen";
                     BEID_EIDCard card = reader.getEIDCard();
                     BEID_EId doc = card.getID();
-
                     GetKlant(doc.getNationalNumber());
 
                 }
-                catch (BEID_Exception beex)
+                else
                 {
-                    Log(new Errorlog()
-                    {
-                        Message = beex.Message,
-                        RegisterID = int.Parse(Properties.Settings.Default.ID),
-                        Stacktrace = beex.StackTrace
-                    });
                     KlantNaam = "Geen kaart";
                     IsKaartIn = false;
                     TotaalBestelling = new ObservableCollection<Bestelling>();
-                    Console.WriteLine(beex.Message);
-                }
-                catch (Exception ex)
-                {
-                    Log(new Errorlog()
-                    {
-                        Message = ex.Message,
-                        RegisterID = int.Parse(Properties.Settings.Default.ID),
-                        Stacktrace = ex.StackTrace
-                    });
-                    KlantNaam = "Geen kaart";
-                    IsKaartIn = false;
-                    TotaalBestelling = new ObservableCollection<Bestelling>();
-                    Console.WriteLine(ex.Message);
+                    CurrentKlant = null;
                 }
             }
-            else
+            catch (BEID_Exception beex)
             {
+                Log(new Errorlog()
+                {
+                    Message = beex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = beex.StackTrace
+                });
                 KlantNaam = "Geen kaart";
                 IsKaartIn = false;
                 TotaalBestelling = new ObservableCollection<Bestelling>();
-                CurrentKlant = null;
+                Console.WriteLine(beex.Message);
+            }
+            catch (Exception ex)
+            {
+                Log(new Errorlog()
+                {
+                    Message = ex.Message,
+                    RegisterID = int.Parse(Properties.Settings.Default.ID),
+                    Stacktrace = ex.StackTrace
+                });
+                KlantNaam = "Geen kaart";
+                IsKaartIn = false;
+                TotaalBestelling = new ObservableCollection<Bestelling>();
+                Console.WriteLine(ex.Message);
             }
         }
+        
         #endregion
     }
 

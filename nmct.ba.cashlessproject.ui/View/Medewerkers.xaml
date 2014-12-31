@@ -47,7 +47,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Content="Verwijder" Style="{StaticResource btnVerwijder}" Command="{Binding DeleteEmployeeCommand}"/>
-        <StackPanel Grid.Column="1" Grid.Row="1">
+        <StackPanel Grid.Column="1" Grid.RowSpan="2" Margin="0,5,0,0">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Naam" Grid.Row="1" Grid.Column="1"/>
@@ -88,6 +88,10 @@
                     <TextBlock Text="Telefoon "/>
                     <TextBox Style="{StaticResource txbR}" Text="{Binding Selected.Phone, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="kaartnummer"/>
+                <TextBox Text="{Binding Selected.Card, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
             </StackPanel>
             <TextBlock Text="{Binding Alert}" Style="{StaticResource txtAlert}"/>
         </StackPanel>

@@ -6485,3 +6485,19 @@ a.list-group-item-danger.active:focus {
 .customDropDown{
 	background-color: #F00;
 }
+.bold{
+	font-weight:bold;
+}
+.errorMsg{
+	min-width:170px;
+}
+.regDate{
+	min-width:50px;
+}
+.stackTrace{
+	max-width:550px;
+	word-wrap: break-word;
+}
+.Acties{
+	min-width:145px;
+}

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<nmct.ba.cashlessproject.api.PresentationModels.LogPM>
+
+@{
+    ViewBag.Title = "Errorlogs";
+}
+<script language="JavaScript" type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<h2>Errorlogs voor @ViewBag.CurrentOrg.OrganisationName</h2>
+
+<p>
+
+    @Html.DropDownList("orgs", (List<SelectListItem>)ViewBag.orgs) 
+    @Html.ActionLink(" Bekijk Errorlogs", "Index", "AdminLogs", null, new { @id = "Submit" })
+
+<script type="text/javascript">
+    $('#Submit').click(function () {
+        var org = $('#orgs').val();
+        console.log(org);
+        var path = '@Url.Content("~/AdminLogs/Index/")' + org
+        $(this).attr("href", path);
+    });
+</script>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Register)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StackTrace)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr @if(item.IsNew){@("class = bold")}>
+        
+        <td class="regDate">
+            @Html.DisplayFor(modelItem => item.Register)
+        </td>
+        <td class="regDate">
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td class="errorMsg">
+            @Html.DisplayFor(modelItem => item.Message)
+        </td>
+        <td class="stackTrace">
+            @Html.DisplayFor(modelItem => item.StackTrace)
+        </td>
+    </tr>
+}
+
+</table>
